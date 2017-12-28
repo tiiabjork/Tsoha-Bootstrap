@@ -7,7 +7,7 @@ Yleisiä linkkejä:
 
 Linkit suunnitelmiin
 * [Kirjautuminen](http://thtbjork.users.cs.helsinki.fi/tsoha/kirjautuminen)
-* [Muistilistan listaussivu](thtbjork.users.cs.helsinki.fi/tsoha/muistilista)
+* [Muistilistan listaussivu](http://thtbjork.users.cs.helsinki.fi/tsoha/muistilista)
 * [Askareen muokkaussivu](http://thtbjork.users.cs.helsinki.fi/tsoha/muistilista/1)
 * [Luokkien käsittelysivu](http://thtbjork.users.cs.helsinki.fi/tsoha/luokat)
 
