@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muokkaa luokkia</h1>
+
+  
+    
+<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Luokka</th>
+        <th></th>
+      </tr>
+    </thead>
+    <!--Listataan askareita -->
+    <tbody>
+      <tr>
+        <td>Kotityö</td>
+        <th><a class="btn btn-danger btn-sm" href="#">Poista</a></th>
+      </tr>
+      <tr>
+        <td>Koulu</td>
+        <th><a class="btn btn-danger btn-sm" href="#">Poista</a></th>
+      </tr>
+    </tbody>
+  </table>
+
+
+  
+
+    <form>
+    <div class="form-group">
+      <label>Lisää luokka</label>
+        <input class="form-control" placeholder="Kirjoita uuden luokan nimi tähän" type="text">
+    <div class="form-group">
+      
+    <div class="form-group">
+      <button class="btn btn-primary">Tallenna</button>
+    </div>
+  </form>
+{% endblock %}

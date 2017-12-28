@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muistilista</h1>
+  <button>Tavallinen painike</button>
+  <button class="btn btn-primary">Lisää askare</button>
+
+  <button class="btn btn-primary">Sininen</button>
+  <button class="btn btn-success">VIhreä</button>
+  <button class="btn btn-danger">Punainen</button>
+
+  <h1>Tekstikentät</h1>
+  <input placeholder="Tavallinen tekstikenttä" type="text">
+  <input class="form-control" placeholder="Bootstrap tekstikenttä" type="text">
+
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Askare</th>
+        <th>Luokka</th>
+        <th>Kiireellisyys</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <!--Listataan askareita -->
+    <tbody>
+      <tr>
+        <td>Tekstiä</td>
+        <td>Tekstiä</td>
+        <td>Tekstiä</td>
+        <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a></th>
+        <th><a class="btn btn-danger btn-sm" href="#">Poista</a></th>
+      </tr>
+      <tr>
+        <td>Tekstiä</td>
+        <td>Tekstiä</td>
+        <td>Tekstiä</td>
+        <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a></th>
+        <th><a class="btn btn-danger btn-sm" href="#">Poista</a></th>
+      </tr>
+    </tbody>
+  </table>
+{% endblock %}
