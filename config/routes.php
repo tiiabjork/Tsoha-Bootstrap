@@ -16,8 +16,8 @@
     AskareController::rekisteroidy();
   });
 
-  $routes->get('askareet/lisaa_askare', function() {
-    AskareController::lisaaAskare();
+  $routes->get('/askareet', function() {
+    AskareController::listaaKaikkiAskareet();
   });
 
 

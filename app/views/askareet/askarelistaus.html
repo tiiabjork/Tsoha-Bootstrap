@@ -6,7 +6,7 @@
     <a href="{{base_path}}/askareet/lisaa_askare" class="btn btn-success">Lisää askare</a>
   </p>
 
-<!--Etsitään ensin ne joilla ei ole luokkaa -->
+
   <table>
   	<col width="300">
     <col width="80">
@@ -17,18 +17,18 @@
         <th></th>
       </tr>
     </thead>
-    <!--Listataan askareita -->
+
     <tbody>
       {% for askare in askareet %}
       <tr>
         <td><a herf="{{base_path}}/askareet/{{askare.atunnus}}">{{askare.kuvaus}}</td>
-        <td>{{askare.Kiireellisyys}}</td>        
+        <td>{{askare.kiireellisyys}}</td>        
       </tr>
       {% endfor %}
     </tbody>
   </table>
 
-<!--Listataan askareita luokasta Koulu -->
+<!--Listataan askareita luokasta Koulu 
   <h4>Koulu</h4>
     <table>
     <col width="300">
@@ -49,7 +49,7 @@
     </tbody>
   </table>
 
-  <!--Listataan askareita luokasta kotityö-->
+
   <h4>Kotityöt</h4>
     <table>
     <col width="300">
@@ -61,7 +61,7 @@
         <th></th>
       </tr>
     </thead>
-    <!--Listataan askareita -->
+
     <tbody>
       <tr>
         <td>Tiskaa</td>
@@ -69,7 +69,8 @@
       </tr>
     </tbody>
   </table>
-  <!--Listataan askareita -->
+
+  Listataan askareita -->
 
 {% endblock %}
 

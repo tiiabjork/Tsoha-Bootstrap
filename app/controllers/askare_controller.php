@@ -16,13 +16,18 @@ class AskareController extends BaseController {
     	View::make('yleiset/rekisteroityminen.html');
     }
 
-	public static function listaaAskareet($laatija){
-		$askareet = Askare::findAll($laatija);
+	public static function listaaKaikkiAskareet(){
+		$askareet = Askare::all();
 		View::make('askareet/askarelistaus.html', array('askareet' => $askareet));
 	}
 
 	public static function lisaaAskare(){
 
+	}
+
+	public static function etsiAskare(){
+		$askare = Askare::find(1);	
+		View::make('askareet/muokkaa_askaretta.html', array('askare' => $askare));
 	}
 }
 

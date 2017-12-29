@@ -8,14 +8,14 @@ CREATE TABLE Askare(
   atunnus SERIAL PRIMARY KEY,
   laatija INTEGER REFERENCES Kayttaja(kayttaja_id),
   kuvaus varchar(120) NOT NULL,
-  kiireellisyys INTEGER,
-  onkoLuokkia boolean DEFAULT FALSE
+  kiireellisyys INTEGER NOT NULL,
+  luokat INTEGER NOT NULL
 );
 
 CREATE TABLE Luokka(
   ltunnus SERIAL PRIMARY KEY,
   laatija INTEGER REFERENCES Kayttaja(kayttaja_id), 
-  luokkakuvaus varchar(20)
+  kuvaus varchar(20) NOT NULL
 );
 
 CREATE TABLE Askareen_luokka(
