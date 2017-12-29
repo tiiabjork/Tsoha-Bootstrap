@@ -2,10 +2,8 @@
 {% block content %}
   <h1>Muistilista</h1>
 
-  <button class="btn btn-primary">Lisää askare</button>
-  <button class="btn btn-primary">Muokkaa luokkia</button>
-
-
+   <th><a class="btn btn-default">Järjestä kiireellisyyden mukaan</a></th>
+   Näytä seuraavan luokan askareet
 
   <table class="table table-bordered table-striped">
     <thead>
@@ -13,7 +11,6 @@
         <th>Askare</th>
         <th>Luokka</th>
         <th>Kiireellisyys</th>
-        <th></th>
         <th></th>
       </tr>
     </thead>
@@ -24,16 +21,16 @@
         <td>Kotityö</td>
         <td>5</td>
         <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a></th>
-        <th><a class="btn btn-danger btn-sm" href="#">Poista</a></th>
       </tr>
       <tr>
         <td>Palauta kandi</td>
         <td>Koulu</td>
         <td>5</td>
         <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a></th>
-        <th><a class="btn btn-danger btn-sm" href="#">Poista</a></th>
       </tr>
     </tbody>
   </table>
+
+  <button class="btn btn-primary btn-sm" href="#">Lisää askare</button>
 {% endblock %}
 

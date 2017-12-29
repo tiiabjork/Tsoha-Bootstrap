@@ -2,22 +2,22 @@
 
   class HelloWorldController extends BaseController{
 
-    public static function index(){
+    //public static function index(){
       // make-metodi renderöi app/views-kansiossa sijaitsevia tiedostoja
-   	  echo 'Tämä on etusivu!';
-    }
+  	 // echo 'Pistäppä vielä perään "etusivu" niin pääset oikealle sivulle!';
+   // }
 
     public static function sandbox(){
       // Testaa koodiasi täällä
       View::make('helloworld.html');
     }
 
-    public static function muistilista(){
-      View::make('suunnitelmat/muistilista.html');
+    public static function muokkaa_askareita(){
+      View::make('suunnitelmat/muokkaa_askareita.html');
     }
 
-    public static function muokkaussivu(){
-      View::make('suunnitelmat/muokkaussivu.html');
+    public static function askareen_muokkaussivu(){
+      View::make('suunnitelmat/askareen_muokkaussivu.html');
     }
 
     public static function kirjautuminen(){
@@ -26,5 +26,17 @@
 
     public static function luokat(){
       View::make('suunnitelmat/luokat.html');
+    }
+
+    public static function rekisteroityminen(){
+      View::make('suunnitelmat/rekisteroityminen.html');
+    }
+
+    public static function nayta_askareet(){
+      View::make('suunnitelmat/nayta_askareet.html');
+    }
+
+    public static function etusivu(){
+      View::make('suunnitelmat/etusivu.html');
     }
   }

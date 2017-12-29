@@ -33,17 +33,19 @@
             <span class="icon-bar"></span>
           </button>
           <!-- Sovelluksen nimi -->
-          <a class="navbar-brand" href="{{base_path}}">Muistilista</a>
+          <a class="navbar-brand" href="{{base_path}}/etusivu">Muistilista</a>
         </div>
 
         <div class="collapse navbar-collapse" id="navigation">
           <ul class="nav navbar-nav">
             <!-- Navigaation linkit -->
-              <li><a href="#">Askareet</a></li>
+              <li><a href="{{base_path}}/askarelistaus">Näytä muistilista</a></li>
+              <li><a href="{{base_path}}/muokkaa_askareita">Muokkaa askareita</a></li>
+              <li><a href="{{base_path}}/muokkaa_luokkia">Muokkaa luokkia</a></li>
             </ul>
 
              <ul class="nav navbar-nav navbar-right">
-              <li><a href="#">Kirjaudu sisään</a></li>
+              <li><a href="{{base_path}}/etusivu/kirjautuminen">Kirjaudu sisään</a></li>
           </ul>
         </div>
       </div>

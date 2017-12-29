@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muistilista</h1><button class="btn btn-primary btn-sm" href="#">Lisää askare</button>
+
+ 
+
+<!--Etsitään ensin ne joilla ei ole luokkaa -->
+  <table>
+  	<col width="300">
+    <col width="80">
+    <thead>
+      <tr>
+        <th>Askare</th>
+        <th>Kiireellisyys</th>
+        <th></th>
+      </tr>
+    </thead>
+    <!--Listataan askareita -->
+    <tbody>
+      <tr>
+        <td>Lähetä sähköposti isännöitsijälle.</td>
+        <td>3</td>        
+      </tr>
+      <tr>
+        <td>Korjaa Catanin pelilauta.</td>
+        <td>1</td>       
+      </tr>
+    </tbody>
+  </table>
+
+<!--Listataan askareita luokasta Koulu -->
+  <h4>Koulu</h4>
+    <table>
+    <col width="300">
+    <col width="80">
+    <thead>
+      <tr>
+        <th>Askare</th>
+        <th>Kiireellisyys</th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr>
+        <td>Palauta kandi</td>
+        <td>5</td>       
+      </tr>
+    </tbody>
+  </table>
+
+  <!--Listataan askareita luokasta kotityö-->
+  <h4>Kotityöt</h4>
+    <table>
+    <col width="300">
+    <col width="80">
+    <thead>
+      <tr>
+        <th>Askare</th>
+        <th>Kiireellisyys</th>
+        <th></th>
+      </tr>
+    </thead>
+    <!--Listataan askareita -->
+    <tbody>
+      <tr>
+        <td>Tiskaa</td>
+        <td>5</td>       
+      </tr>
+    </tbody>
+  </table>
+  <!--Listataan askareita -->
+
+{% endblock %}
+
