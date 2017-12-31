@@ -9,7 +9,8 @@ CREATE TABLE Askare(
   laatija INTEGER REFERENCES Kayttaja(kayttaja_id),
   kuvaus varchar(120) NOT NULL,
   kiireellisyys INTEGER NOT NULL,
-  luokat INTEGER NOT NULL
+  luokat INTEGER NOT NULL,
+  lisatiedot varchar(300)
 );
 
 CREATE TABLE Luokka(

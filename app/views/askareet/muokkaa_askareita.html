@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+  <h1>Muistilista</h1>
+
+
+  <table class="table table-bordered table-striped">
+  	<col width="300">
+    <col width="300">
+    <col width="80">
+    <col width="80">
+    <col width="80">
+    <thead>
+      <tr>
+        <th>Askare</th>
+        <th>Luokka</th>
+        <th>Kiireellisyys</th>
+        <td>askare.lisatiedot</td>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      {% for askare in askareet %}
+      <tr>
+        <td>{{askare.kuvaus}}</td>
+        <td>{{askare.luokat}}, {{askare.luokat}}</td>
+        <td>{{askare.kiireellisyys}}</td>
+        <td>{{askare.lisatiedot}}</td>
+        <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a></th>
+        <th><a class="btn btn-danger btn-sm" href="#">Poista</a></th>      
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <p> <button class="btn btn-primary btn-sm" href="#">Lisää askare</button> </p>
+{% endblock %}
+

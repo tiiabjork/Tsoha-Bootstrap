@@ -20,7 +20,21 @@
     AskareController::listaaKaikkiAskareet();
   });
 
+  $routes->get('/muokkaa', function() {
+    AskareController::listaaKaikkiAskareetMuokkaus();
+  });
 
+  $routes->get('/luokat', function() {
+    AskareController::listaaKaikkiLuokatMuokkaus();
+  });
+
+  $routes->get('askareet/:id', function($id) {
+    AskareController::find($id);
+  });
+
+  $routes->get('askareet/:atunnus/muokkaa', function($atunnus) {
+    AskareController::find($atunnus);
+  });
 
   //suunnitelmat!
 

@@ -2,14 +2,11 @@
 
 class Askare extends BaseModel{
 	
-	public $atunnus, $laatija, $kuvaus, $kiireellisyys, $luokat;
+	public $atunnus, $laatija, $kuvaus, $kiireellisyys, $luokat, $lisatiedot;
 
 	public function __construct($attributes){
 		parent::__construct($attributes);
 	}
-
-
-
 
 	//hakee KAIKKI askareet, all()
 	public static function all(){
@@ -24,15 +21,15 @@ class Askare extends BaseModel{
 				'laatija' => $row['laatija'],
 				'kuvaus' => $row['kuvaus'],
 				'kiireellisyys' => $row['kiireellisyys'],
-				'luokat' => $row['luokat']
+				'luokat' => $row['luokat'],
+				'lisatiedot' => $row['lisatiedot']
 			));
 		}
 		return $askareet;
 	}
 
-	//Etsii yhden, find()
 
-		//Hakee kaikki yhden ihmisen askareet
+	//Etsii yhden askareen, find()
 	public static function find($atunnus){
 		$query = DB::connection()->prepare('SELECT * FROM Askare WHERE atunnus = :atunnus LIMIT 1');
 		$query->execute(array('atunnus' => $atunnus));
@@ -44,7 +41,8 @@ class Askare extends BaseModel{
 			'laatija' => $row['laatija'],
 			'kuvaus' => $row['kuvaus'],
 			'kiireellisyys' => $row['kiireellisyys'],
-			'luokat' => $row['luokat']
+			'luokat' => $row['luokat'],
+			'lisatiedot' => $row['lisatiedot']
 		));
 			return $askare;
 		}
@@ -53,23 +51,10 @@ class Askare extends BaseModel{
 		return null;
 	}
 
-		//Hakee kaikki yhden ihmisen askareet
-	public static function findAll($id){
-		$query = DB::connection()->prepare('SELECT * FROM Askare WHERE laatija = :id');
-		$query->execute(array('laatija' => $id));
-		$rows = $query->fetchAll();
-		$askareet = array();
 
-		foreach($rows as $row){
-			$askareet[] = new Askare(array(
-				'atunnus' => $row['atunnus'],
-				'laatija' => $row['laatija'],
-				'kuvaus' => $row['kuvaus'],
-				'kiireellisyys' => $row['kiireellisyys'],
-				'onkoLuokkia' => $row['onkoLuokkia']
-			));
-		}
-		return $askareet;
+	//Tallentaa käyttäjän lisäämän tietokohteen
+	public static function save(){
+
 	}
 
 }
