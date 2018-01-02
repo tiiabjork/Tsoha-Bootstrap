@@ -26,26 +26,27 @@ class Luokka extends BaseModel{
 		return $luokat;
 	}
 
+	// Hakee yhden luokan.
+	public static function find($ltunnus){
+		$query = DB::connection()->prepare('SELECT * FROM Luokka WHERE ltunnus = :ltunnus LIMIT 1');
+		$query->execute(array('ltunnus' => $ltunnus));
+		$row = $query->fetch();
 
-	//Etsii yhden, find()
+		if($row){	
+			$luokka = new Luokka(array(
+			'ltunnus' => $row['ltunnus'],
+			'laatija' => $row['laatija'],
+			'kuvaus' => $row['kuvaus']
+		));
+
+
+			return $luokka;
+		}
 
 		
-
-    //Hakee kaikki yhden ihmisen askareet
-	public static function findAll($id){
-		$query = DB::connection()->prepare('SELECT * FROM Luokka WHERE laatija = :id');
-		$query->execute(array('laatija' => $id));
-		$rows = $query->fetchAll();
-		$luokat = array();
-
-		foreach($rows as $row){
-			$luokat[] = new Luokka(array(
-				'atunnus' => $row['atunnus'],
-				'laatija' => $row['laatija'],
-				'kuvaus' => $row['kuvaus']
-			));
-		}
-		return $luokat;
+		return null;
 	}
+
+
 
 }

@@ -35,7 +35,7 @@ class Askare extends BaseModel{
 		$query->execute(array('atunnus' => $atunnus));
 		$row = $query->fetch();
 
-		if($row){
+		if($row){	
 			$askare = new Askare(array(
 			'atunnus' => $row['atunnus'],
 			'laatija' => $row['laatija'],
@@ -44,17 +44,22 @@ class Askare extends BaseModel{
 			'luokat' => $row['luokat'],
 			'lisatiedot' => $row['lisatiedot']
 		));
+			// Luokkiin tarkoitus tuoda listaus askareen luokista. luokat' => Askareen_luokka::findLuokat($atunnus) (?)
 			return $askare;
 		}
-
-		
 		return null;
 	}
 
 
 	//Tallentaa käyttäjän lisäämän tietokohteen
-	public static function save(){
-
+	public function save(){
+    $query = DB::connection()->prepare('INSERT INTO Askare (kuvaus, kiireellisyys, luokat, lisatiedot) 
+    	VALUES (:kuvaus, :kiireellisyys, 0, :lisatiedot) RETURNING atunnus');
+    $query->execute(array('kuvaus' => $this->kuvaus, 
+    					'kiireellisyys' => $this->kiireellisyys,
+    					'lisatiedot' => $this->lisatiedot));
+    $row = $query->fetch();
+    $this->atunnus = $row['atunnus'];
 	}
 
 }

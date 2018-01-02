@@ -1,1 +1,40 @@
-lisaa_askare.html
+{% extends "base.html" %}
+{% block content %}
+  <h1>Lisää askare</h1>
+
+  <form method="post" action="{{base_path}}/askareet">
+
+    <div class="form-group">
+      <label>Nimi</label>
+      <input name="kuvaus" class="form-control" type="text">
+    </div>
+
+    <div class="form-group">
+      <label>Kiireellisyys</label>
+        <label class="radio-inline">
+            <input type="radio" name="kiireellisyys" value="1">1
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="kiireellisyys" value="2">2
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="kiireellisyys" value="3">3
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="kiireellisyys" value="4">4
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="kiireellisyys" value="5">5
+	  </label>
+    </div>
+
+    <div class="form-group">
+      <label>Lisätiedot</label>
+      <textarea name="lisatiedot" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Lisää</button>
+    </div>
+  </form>
+{% endblock %}

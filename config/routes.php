@@ -20,6 +20,22 @@
     AskareController::listaaKaikkiAskareet();
   });
 
+  $routes->post('/askareet/', function() {
+    AskareController::store();
+  });
+
+  $routes->get('/askareet/uusi', function() {
+    AskareController::create();
+  });
+
+  $routes->get('/askareet/:atunnus', function($atunnus) {
+    AskareController::find($atunnus);
+  });
+
+  $routes->get('/askareet/:atunnus/muokkaa', function($atunnus) {
+    AskareController::find($atunnus);
+  });
+
   $routes->get('/muokkaa', function() {
     AskareController::listaaKaikkiAskareetMuokkaus();
   });
@@ -28,12 +44,8 @@
     AskareController::listaaKaikkiLuokatMuokkaus();
   });
 
-  $routes->get('askareet/:id', function($id) {
-    AskareController::find($id);
-  });
-
-  $routes->get('askareet/:atunnus/muokkaa', function($atunnus) {
-    AskareController::find($atunnus);
+  $routes->get('/askareet/uusi', function() {
+    AskareController::uusi();
   });
 
   //suunnitelmat!

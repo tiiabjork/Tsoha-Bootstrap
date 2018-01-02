@@ -21,6 +21,23 @@ class AskareController extends BaseController {
 		View::make('askareet/askarelistaus.html', array('askareet' => $askareet));
 	}
 
+	public static function create(){
+		View::make('askareet/lisaa_askare.html');
+	}
+
+	public static function store(){
+		$params = $_POST;
+		$askare = new Askare(array(
+			'kuvaus' => $params['kuvaus'],
+			'kiireellisyys' => $params['kiireellisyys'],
+			'lisatiedot' => $params['lisatiedot']
+		));
+
+		$askare->save();
+
+		Redirect::to('/askareet/' . $askare->atunnus, array('message' => 'Askare on lisätty muistilistaasi!'));
+	}
+
 	public static function find($atunnus) {
 		$askare = Askare::find($atunnus);
 		View::make('askareet/nayta_askare.html', array('askare' => $askare));
@@ -43,9 +60,7 @@ class AskareController extends BaseController {
 		View::make('luokat/muokkaa_luokkia.html', array('luokat' => $luokat));
 	}
 
-	public static function lisaaAskare(){
-
-	}
+	
 
 	public static function etsiAskare(){
 		$askare = Askare::find(1);	
