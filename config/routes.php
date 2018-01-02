@@ -33,7 +33,7 @@
   });
 
   $routes->get('/askareet/:atunnus/muokkaa', function($atunnus) {
-    AskareController::find($atunnus);
+    AskareController::muutaTietoja($atunnus);
   });
 
   $routes->get('/muokkaa', function() {
@@ -44,9 +44,6 @@
     AskareController::listaaKaikkiLuokatMuokkaus();
   });
 
-  $routes->get('/askareet/uusi', function() {
-    AskareController::uusi();
-  });
 
   //suunnitelmat!
 

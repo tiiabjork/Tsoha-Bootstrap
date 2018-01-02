@@ -2,7 +2,7 @@
 
 Yleisiä linkkejä:
 
-* [Linkki sovellukseeni](http://thtbjork.users.cs.helsinki.fi/tsoha/)
+* [Linkki sovellukseeni](http://thtbjork.users.cs.helsinki.fi/tsoha/). Kirjautuminen tai rekisteröityminen ei toimi vielä toistaiseksi, joten klikkaa vaan ylhäältä "Näytä muistilista".
 * [Linkki dokumentaatiooni](https://github.com/tiiabjork/Tsoha-Bootstrap/blob/master/doc/dokumentaatio.pdf)
 
 

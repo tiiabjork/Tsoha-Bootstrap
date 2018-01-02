@@ -8,7 +8,7 @@ class Askare extends BaseModel{
 		parent::__construct($attributes);
 	}
 
-	//hakee KAIKKI askareet, all()
+	//Palauttaa KAIKKI askareet.
 	public static function all(){
 		$query = DB::connection()->prepare('SELECT * FROM Askare');
 		$query->execute();
@@ -29,7 +29,7 @@ class Askare extends BaseModel{
 	}
 
 
-	//Etsii yhden askareen, find()
+	//Palauttaa yhden askareen sen id:n perusteella.
 	public static function find($atunnus){
 		$query = DB::connection()->prepare('SELECT * FROM Askare WHERE atunnus = :atunnus LIMIT 1');
 		$query->execute(array('atunnus' => $atunnus));
@@ -51,7 +51,7 @@ class Askare extends BaseModel{
 	}
 
 
-	//Tallentaa käyttäjän lisäämän tietokohteen
+	//TOIMII - Tallentaa käyttäjän lisäämän tietokohteen
 	public function save(){
     $query = DB::connection()->prepare('INSERT INTO Askare (kuvaus, kiireellisyys, luokat, lisatiedot) 
     	VALUES (:kuvaus, :kiireellisyys, 0, :lisatiedot) RETURNING atunnus');

@@ -14,13 +14,14 @@
       <tr>
         <th>Askare</th>
         <th>Kiireellisyys</th>
+
       </tr>
     </thead>
 
     <tbody>
       {% for askare in askareet %}
       <tr>
-        <th><a herf="{{base_path}}/askareet/{{askare.atunnus}}">{{askare.kuvaus}} {{askare.atunnus}}</th>
+        <td><a href="{{base_path}}/askareet/{{askare.atunnus}}">{{askare.kuvaus}}</td>
         <td>
         {% if askare.kiireellisyys != 0 %}
         {{askare.kiireellisyys}}
