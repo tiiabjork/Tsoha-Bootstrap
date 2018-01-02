@@ -2,7 +2,7 @@
 
 class AskareController extends BaseController {
 
-
+	// Täältä löytyy varsinaisen ohjelman koodit.
 
     public static function index(){
         View::make('yleiset/etusivu.html');
@@ -62,7 +62,7 @@ class AskareController extends BaseController {
 		View::make('askareet/muokkaa_askareita.html', array('askareet' => $askareet));
 	}
 
-	//?
+	//Toimii osittain, muokkaus ja poistaminen ei vielä toiminnassa.
 	public static function listaaKaikkiLuokatMuokkaus(){
 		$luokat = Luokka::all();
 		View::make('luokat/muokkaa_luokkia.html', array('luokat' => $luokat));

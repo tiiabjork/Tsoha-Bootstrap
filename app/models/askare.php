@@ -53,6 +53,7 @@ class Askare extends BaseModel{
 
 	//TOIMII - Tallentaa käyttäjän lisäämän tietokohteen
 	public function save(){
+
     $query = DB::connection()->prepare('INSERT INTO Askare (kuvaus, kiireellisyys, luokat, lisatiedot) 
     	VALUES (:kuvaus, :kiireellisyys, 0, :lisatiedot) RETURNING atunnus');
     $query->execute(array('kuvaus' => $this->kuvaus, 
