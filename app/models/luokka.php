@@ -9,7 +9,7 @@ class Luokka extends BaseModel{
 	}
 
 
-	//hakee KAIKKI luokat, all()
+	//Palauttaa KAIKKI luokat.
 	public static function all(){
 		$query = DB::connection()->prepare('SELECT * FROM Luokka');
 		$query->execute();
@@ -26,7 +26,7 @@ class Luokka extends BaseModel{
 		return $luokat;
 	}
 
-	// Hakee yhden luokan.
+	//Palauttaa yhden luokan sen tunnuksen perusteella.
 	public static function find($ltunnus){
 		$query = DB::connection()->prepare('SELECT * FROM Luokka WHERE ltunnus = :ltunnus LIMIT 1');
 		$query->execute(array('ltunnus' => $ltunnus));
@@ -38,12 +38,8 @@ class Luokka extends BaseModel{
 			'laatija' => $row['laatija'],
 			'kuvaus' => $row['kuvaus']
 		));
-
-
-			return $luokka;
-		}
-
-		
+		return $luokka;
+		}	
 		return null;
 	}
 

@@ -5,14 +5,15 @@
 
   <table class="table table-bordered table-striped">
   	<col width="300">
+    <col width="50">
+    <col width="50">
     <col width="300">
-    <col width="80">
     <col width="80">
     <col width="80">
     <thead>
       <tr>
         <th>Askare</th>
-        <th>Luokka</th>
+        <th>Luokkien määrä</th>
         <th>Kiireellisyys</th>
         <td>askare.lisatiedot</td>
         <th></th>
@@ -24,7 +25,7 @@
       {% for askare in askareet %}
       <tr>
         <td>{{askare.kuvaus}}</td>
-        <td>{{askare.luokat}}, {{askare.luokat}}</td>
+        <td>{{askare.luokat}}</td>
         <td>{{askare.kiireellisyys}}</td>
         <td>{{askare.lisatiedot}}</td>
         <th><a class="btn btn-default btn-sm" href="#">Muokkaa</a></th>
