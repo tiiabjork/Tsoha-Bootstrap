@@ -43,6 +43,14 @@ class Luokka extends BaseModel{
 		return null;
 	}
 
+public function save(){
+	//men ole varma pitääkö mitään edes returnaa!
+    $query = DB::connection()->prepare('INSERT INTO Luokka (kuvaus) 
+    	VALUES (:kuvaus) RETURNING ltunnus');
+    $query->execute(array('kuvaus' => $this->kuvaus));
+    $row = $query->fetch();
+    $this->atunnus = $row['atunnus'];
+	}
 
 
 }

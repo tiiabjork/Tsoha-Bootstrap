@@ -21,7 +21,7 @@
     <tbody>
       {% for askare in askareet %}
       <tr>
-        <td><a href="{{base_path}}/askareet/{{askare.atunnus}}">{{askare.kuvaus}}</td>
+        <td><a href="{{base_path}}/askareet/{{askare.atunnus}}">{{askare.nimi}}</td>
         <td>
         {% if askare.kiireellisyys != 0 %}
         {{askare.kiireellisyys}}

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>{{askare.kuvaus}}</h1>
+  <h1>{{askare.nimi}}</h1>
 
    <p>
     <button class="btn btn-danger">Poista</button> 
@@ -9,7 +9,10 @@
 
   <ul>
   	<li><strong>Kiireellisyys: </strong> {{askare.kiireellisyys}}</li>
-  	<li><strong>Luokat: </strong> {{askare.luokat}}</li> 
+  	<li><strong>Luokat: </strong> 
+  	    {% for luokka in askareenLuokat %}
+        	<button type="button" class="btn btn-primary">{{luokka.kuvaus}}</button>
+        {% endfor %} </li> 
   	<li><strong>Lisätiedot: </strong>{{askare.lisatiedot}}</li>
   </ul>
 

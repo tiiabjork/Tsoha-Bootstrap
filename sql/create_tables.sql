@@ -7,10 +7,10 @@ CREATE TABLE Kayttaja(
 CREATE TABLE Askare(
   atunnus SERIAL PRIMARY KEY,
   laatija INTEGER REFERENCES Kayttaja(kayttaja_id),
-  kuvaus varchar(120) NOT NULL,
+  nimi varchar(120) NOT NULL,
   kiireellisyys INTEGER NOT NULL,
-  luokat INTEGER NOT NULL,
-  lisatiedot varchar(300)
+  lisatiedot varchar(300),
+  status INTEGER NOT NULL
 );
 
 CREATE TABLE Luokka(

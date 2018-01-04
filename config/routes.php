@@ -17,7 +17,7 @@
   });
 
   $routes->get('/askareet', function() {
-    AskareController::listaaKaikkiAskareet();
+    AskareController::listaaKaikkiAskareetMuokkaus();
   });
 
   $routes->post('/askareet/', function() {
@@ -36,13 +36,21 @@
     AskareController::muutaTietoja($atunnus);
   });
 
-  $routes->get('/muokkaa', function() {
-    AskareController::listaaKaikkiAskareetMuokkaus();
+  $routes->post('/luokat', function() {
+    LuokkaController::store();
   });
 
   $routes->get('/luokat', function() {
-    AskareController::listaaKaikkiLuokatMuokkaus();
+    LuokkaController::listaaKaikkiLuokatMuokkaus();
   });
+
+
+
+
+
+
+
+
 
 
   //suunnitelmat!

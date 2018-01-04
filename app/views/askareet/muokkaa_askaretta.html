@@ -1,20 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
-  <h1>Muokkaa askaretta {{askare.kuvaus}}</h1>
+  <h1>Muokkaa askaretta {{askare.nimi}}</h1>
 
   <form>
     <div class="form-group">
       <label>Askare</label>
-      <input class="form-control" value="{{askare.kuvaus}}" type="text">
+      <input class="form-control" value="{{askare.nimi}}" type="text">
     </div>
     <div class="form-group">
       <label>Tärkeysjärjestys (1-5 tai tyhjä)</label>
       <input class="form-control" value="{{askare.kiireellisyys}}" type="text">
     </div>
     <div class="form-group">
-      <label>Valitse askareelle luokkia</label>
-      <button type="submit" class="btn btn-default active">Kotityöt</button>
-      <button type="submit" class="btn btn-default">Koulu</button>
+      <label>Askareelle valitut luokat</label>
+      {% for valittuLuokka in valitutLuokat %}
+          <button type="button" class="btn btn-primary">{{valittuLuokka.kuvaus}}</button>
+       {% endfor %} 
+
+       {% for valittuLuokka in valitutLuokat %}
+          <button name="omena" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="true" autocomplete="off">{{valittuLuokka.kuvaus}}</button>
+       {% endfor %} 
+
+       {% for eiValittuLuokka in eiValitutLuokat %}
+          <button name="omena" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off">{{eiValittuLuokka.kuvaus}}</button>
+
+       {% endfor %} 
     </div>
     <div class="form-group">
       <label>Lisätiedot</label>

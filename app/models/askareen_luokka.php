@@ -25,40 +25,68 @@ class Askareen_luokka extends BaseModel{
 	}
 
 
-	//Etsii yhden askareen kaikki luokat, find(atunnus). Palauttaa listan luokista.
-	public static function findLuokat($atunnus){
-		$kaikkiYhdistelmat = Askareen_luokka::all();
-		$kaikkiLuokat = Luokka::all();
-		$palautettavatLuokat = array();
-		$i = 0;
-		$j = 0;
+	//Etsii yhden askareen kaikki luokat, findLuokat(atunnus). Palauttaa listan luokista.
+	public static function findValitutLuokat($atunnus){
+		$query = DB::connection()->prepare('
+				SELECT Luokka.ltunnus, laatija, kuvaus 
+				FROM Luokka, Askareen_luokka 
+				WHERE Luokka.ltunnus = Askareen_luokka.ltunnus
+					AND atunnus = :atunnus
+				');
+		//seuraavan rivin array antaa yläpuolella olevalle :atunnukselle jotain
+		$query->execute(array('atunnus' => $atunnus));
+		$rows = $query->fetchAll();
+		$valitutLuokat = array();
 
-		foreach($kaikkiYhdistelmat as $var){
-			if ($atunnus == $var['atunnus']) {
-				$palautettavatLuokat[] = Luokka::find($atunnus);
-				$j++;
-			}	
-			$i++;	
+		foreach($rows as $row){
+			$valitutLuokat[] = new Luokka(array(
+				'ltunnus' => $row['ltunnus'],
+				'laatija' => $row['laatija'],
+				'kuvaus' => $row['kuvaus']
+			));
 		}
-		return $palautettavatLuokat;
+		return $valitutLuokat;
 	}
 
-	//Etsii yhden luokan kaikki askareet, find(ltunnus). Palauttaa listan askareista.
-	public static function findAskareet($ltunnus){
-		$kaikkiYhdistelmat = Askareen_luokka::all();
-		$kaikkiAskareet = Askare::all();
-		$palautettavatAskareet = array();
-		$i = 0;
-		$j = 0;
+	public static function findEiValitutLuokat($atunnus){
+		$query = DB::connection()->prepare('
+				SELECT Luokka.ltunnus, laatija, kuvaus 
+				FROM Luokka, Askareen_luokka 
+				WHERE Luokka.ltunnus NOT IN 
+					(SELECT ltunnus FROM Askareen_luokka WHERE atunnus = :atunnus)
+					AND Luokka.ltunnus = Askareen_luokka.ltunnus
+				');
+		$query->execute(array('atunnus' => $atunnus));
+		$rows = $query->fetchAll();
+		$eiValitutLuokat = array();
 
-		foreach($kaikkiYhdistelmat as $yhdistelma){
-			if ($this->ltunnus == $ltunnus) {
-				$palautettavatLuokat[] = Askare::find($this->atunnus);
-				$j++;
-			}	
-			$i++;	
+		foreach($rows as $row){
+			$eiValitutLuokat[] = new Luokka(array(
+				'ltunnus' => $row['ltunnus'],
+				'laatija' => $row['laatija'],
+				'kuvaus' => $row['kuvaus']
+			));
 		}
-		return $palautettavatAskareet;
+		return $eiValitutLuokat;
+	}
+
+	//Etsii yhden luokan kaikki askareet, findAskareet(ltunnus). Palauttaa listan askareista.
+	public static function findAskareet($ltunnus){
+		$query = DB::connection()->prepare('
+				SELECT atunnus 
+				FROM Askareen_luokka 
+				WHERE ltunnus = :ltunnus
+				');
+		$query->execute();
+		$rows = $query->fetchAll();
+		$luokan_askareet = array();
+
+		foreach($rows as $row){
+			$luokan_askareet[] = new Askareen_luokka(array(
+				'atunnus' => $row['atunnus']
+			));
+		}
+		return $luokan_askareet;
 	}
 
 	//Tallentaa käyttäjän lisäämän tietokohteen

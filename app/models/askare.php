@@ -2,7 +2,7 @@
 
 class Askare extends BaseModel{
 	
-	public $atunnus, $laatija, $kuvaus, $kiireellisyys, $luokat, $lisatiedot;
+	public $atunnus, $laatija, $nimi, $kiireellisyys, $lisatiedot, $status;
 
 	public function __construct($attributes){
 		parent::__construct($attributes);
@@ -10,7 +10,10 @@ class Askare extends BaseModel{
 
 	//Palauttaa KAIKKI askareet.
 	public static function all(){
-		$query = DB::connection()->prepare('SELECT * FROM Askare');
+		$query = DB::connection()->prepare('
+				SELECT * 
+				FROM Askare
+				ORDER BY Askare.kiireellisyys DESC');
 		$query->execute();
 		$rows = $query->fetchAll();
 		$askareet = array();
@@ -19,10 +22,10 @@ class Askare extends BaseModel{
 			$askareet[] = new Askare(array(
 				'atunnus' => $row['atunnus'],
 				'laatija' => $row['laatija'],
-				'kuvaus' => $row['kuvaus'],
+				'nimi' => $row['nimi'],
 				'kiireellisyys' => $row['kiireellisyys'],
-				'luokat' => $row['luokat'],
-				'lisatiedot' => $row['lisatiedot']
+				'lisatiedot' => $row['lisatiedot'],
+				'status' => $row['status']
 			));
 		}
 		return $askareet;
@@ -31,7 +34,11 @@ class Askare extends BaseModel{
 
 	//Palauttaa yhden askareen sen id:n perusteella.
 	public static function find($atunnus){
-		$query = DB::connection()->prepare('SELECT * FROM Askare WHERE atunnus = :atunnus LIMIT 1');
+		$query = DB::connection()->prepare('
+				SELECT * 
+				FROM Askare 
+				WHERE atunnus = :atunnus 
+				LIMIT 1');
 		$query->execute(array('atunnus' => $atunnus));
 		$row = $query->fetch();
 
@@ -39,10 +46,10 @@ class Askare extends BaseModel{
 			$askare = new Askare(array(
 			'atunnus' => $row['atunnus'],
 			'laatija' => $row['laatija'],
-			'kuvaus' => $row['kuvaus'],
+			'nimi' => $row['nimi'],
 			'kiireellisyys' => $row['kiireellisyys'],
-			'luokat' => $row['luokat'],
-			'lisatiedot' => $row['lisatiedot']
+			'lisatiedot' => $row['lisatiedot'],
+			'status' => $row['status']
 		));
 			// Luokkiin tarkoitus tuoda listaus askareen luokista. luokat' => Askareen_luokka::findLuokat($atunnus) (?)
 			return $askare;
@@ -54,9 +61,9 @@ class Askare extends BaseModel{
 	//TOIMII - Tallentaa käyttäjän lisäämän tietokohteen
 	public function save(){
 
-    $query = DB::connection()->prepare('INSERT INTO Askare (kuvaus, kiireellisyys, luokat, lisatiedot) 
-    	VALUES (:kuvaus, :kiireellisyys, 0, :lisatiedot) RETURNING atunnus');
-    $query->execute(array('kuvaus' => $this->kuvaus, 
+    $query = DB::connection()->prepare('INSERT INTO Askare (nimi, kiireellisyys, lisatiedot, status) 
+    	VALUES (:nimi, :kiireellisyys, :lisatiedot, 0) RETURNING atunnus');
+    $query->execute(array('nimi' => $this->nimi, 
     					'kiireellisyys' => $this->kiireellisyys,
     					'lisatiedot' => $this->lisatiedot));
     $row = $query->fetch();
