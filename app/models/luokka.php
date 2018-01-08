@@ -2,10 +2,11 @@
 
 class Luokka extends BaseModel{
 	
-	public $atunnus, $laatija, $kuvaus;
+	public $atunnus, $laatija, $nimi;
 
 	public function __construct($attributes){
 		parent::__construct($attributes);
+		$this->validators = array('validoi_tyhjyys', 'validoi_pituus', 'validoi_tupla_luokka');
 	}
 
 
@@ -20,7 +21,7 @@ class Luokka extends BaseModel{
 			$luokat[] = new Luokka(array(
 				'ltunnus' => $row['ltunnus'],
 				'laatija' => $row['laatija'],
-				'kuvaus' => $row['kuvaus']
+				'nimi' => $row['nimi']
 			));
 		}
 		return $luokat;
@@ -28,7 +29,11 @@ class Luokka extends BaseModel{
 
 	//Palauttaa yhden luokan sen tunnuksen perusteella.
 	public static function find($ltunnus){
-		$query = DB::connection()->prepare('SELECT * FROM Luokka WHERE ltunnus = :ltunnus LIMIT 1');
+		$query = DB::connection()->prepare('
+				SELECT * 
+				FROM Luokka 
+				WHERE ltunnus = :ltunnus 
+				LIMIT 1');
 		$query->execute(array('ltunnus' => $ltunnus));
 		$row = $query->fetch();
 
@@ -36,7 +41,7 @@ class Luokka extends BaseModel{
 			$luokka = new Luokka(array(
 			'ltunnus' => $row['ltunnus'],
 			'laatija' => $row['laatija'],
-			'kuvaus' => $row['kuvaus']
+			'nimi' => $row['nimi']
 		));
 		return $luokka;
 		}	
@@ -44,12 +49,10 @@ class Luokka extends BaseModel{
 	}
 
 public function save(){
-	//men ole varma pitääkö mitään edes returnaa!
-    $query = DB::connection()->prepare('INSERT INTO Luokka (kuvaus) 
-    	VALUES (:kuvaus) RETURNING ltunnus');
-    $query->execute(array('kuvaus' => $this->kuvaus));
+    $query = DB::connection()->prepare('INSERT INTO Luokka (nimi) 
+    	VALUES (:nimi) RETURNING ltunnus');
+    $query->execute(array('nimi' => $this->nimi));
     $row = $query->fetch();
-    //$this->ltunnus = $row['ltunnus'];
 	}
 
 

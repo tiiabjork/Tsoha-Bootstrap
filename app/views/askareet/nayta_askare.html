@@ -2,16 +2,33 @@
 {% block content %}
   <h1>{{askare.nimi}}</h1>
   
+  {% if message %}
+    <div class="alert alert-success">
+      <ul>
+          <li>{{message}}</li>
+        </ul>
+    </div>
+  {% endif %}
+
    <p>
     <button class="btn btn-danger">Poista</button> 
     <a href="{{base_path}}/askareet/{{askare.atunnus}}/muokkaa" class="btn btn-default">Muokkaa</a>
   </p>
 
   <ul>
-  	<li><strong>Kiireellisyys: </strong> {{askare.kiireellisyys}}</li>
+    <li>
+      {% if askare.status == 0 %}
+          <button class="btn btn-danger btn-sm">Tekemättä</button>
+      {% else %}
+          <button class="btn btn-success btn-sm">Tehty</button>
+      {% endif %} 
+    </li>
+    {% if askare.kiireellisyys != 0 %}
+      <li><strong>Kiireellisyys: </strong> {{askare.kiireellisyys}}</li>
+    {% endif %} 	
   	<li><strong>Luokat: </strong> 
   	    {% for luokka in askareenLuokat %}
-        	<button type="button" class="btn btn-primary">{{luokka.kuvaus}}</button>
+        	<button class="tag label label-info green">{{luokka.nimi}}</button>
         {% endfor %} </li> 
   	<li><strong>Lisätiedot: </strong>{{askare.lisatiedot}}</li>
   </ul>

@@ -9,23 +9,13 @@ class Askare extends BaseModel{
 		$this->validators = array('validoi_tyhjyys', 'validoi_pituus', 'validoi_kiireellisyys');
 	}
 
-	//public function validoi_nimi(){
-	//	$errors = array();
-	//	$errors[] = parent::validoi_tyhjyys($this->nimi);
-	//	$errors[] = parent::validoi_pituus($this->nimi);
-	//	return $errors;
-	//}
-
-	//public function validoi_kiireellisyy(){
-	//	$errors = array();
-	//	$errors[] = parent::validoi_kiireellisyys($this->kiireellisyys);
-	//	return $errors;
-	//}
-
 	public function kiireellisyys(){
 		return $this->kiireellisyys;
 	}
 
+	public function status(){
+		return $this->status;
+	}
 
 	//Palauttaa KAIKKI askareet.
 	public static function all(){
@@ -79,14 +69,32 @@ class Askare extends BaseModel{
 
 	//TOIMII - Tallentaa käyttäjän lisäämän tietokohteen
 	public function save(){
-
-    $query = DB::connection()->prepare('INSERT INTO Askare (nimi, kiireellisyys, lisatiedot, status) 
-    	VALUES (:nimi, :kiireellisyys, :lisatiedot, 0) RETURNING atunnus');
-    $query->execute(array('nimi' => $this->nimi, 
+    	$query = DB::connection()->prepare('
+    			INSERT INTO Askare (nimi, kiireellisyys, lisatiedot, status) 
+    			VALUES (:nimi, :kiireellisyys, :lisatiedot, 0) RETURNING atunnus');
+    	$query->execute(array('nimi' => $this->nimi, 
     					'kiireellisyys' => $this->kiireellisyys,
     					'lisatiedot' => $this->lisatiedot));
-    $row = $query->fetch();
-    $this->atunnus = $row['atunnus'];
+    	$row = $query->fetch();
+    	$this->atunnus = $row['atunnus'];
+	}
+
+	public function update(){
+		$query = DB::connection()->prepare('
+    			UPDATE Askare 
+    			SET nimi = :nimi, kiireellisyys = :kiireellisyys, lisatiedot = :lisatiedot, status = :status 
+    			WHERE atunnus = :atunnus
+    			RETURNING atunnus');
+    	$query->execute(array('atunnus' => $this->atunnus,
+    					'nimi' => $this->nimi, 
+    					'kiireellisyys' => $this->kiireellisyys,
+    					'lisatiedot' => $this->lisatiedot,
+    					'status' => $this->status));
+    	$row = $query->fetch();
+	}
+
+	public function delete($atunnus){
+
 	}
 
 }

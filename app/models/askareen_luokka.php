@@ -27,7 +27,7 @@ class Askareen_luokka extends BaseModel{
 	//Etsii yhden askareen kaikki luokat, findLuokat(atunnus). Palauttaa listan luokista.
 	public static function findValitutLuokat($atunnus){
 		$query = DB::connection()->prepare('
-				SELECT Luokka.ltunnus, laatija, kuvaus 
+				SELECT Luokka.ltunnus, laatija, nimi 
 				FROM Luokka, Askareen_luokka 
 				WHERE Luokka.ltunnus = Askareen_luokka.ltunnus
 					AND atunnus = :atunnus
@@ -41,7 +41,7 @@ class Askareen_luokka extends BaseModel{
 			$valitutLuokat[] = new Luokka(array(
 				'ltunnus' => $row['ltunnus'],
 				'laatija' => $row['laatija'],
-				'kuvaus' => $row['kuvaus']
+				'nimi' => $row['nimi']
 			));
 		}
 		return $valitutLuokat;
@@ -49,7 +49,7 @@ class Askareen_luokka extends BaseModel{
 
 	public static function findEiValitutLuokat($atunnus){
 		$query = DB::connection()->prepare('
-				SELECT Luokka.ltunnus, laatija, kuvaus 
+				SELECT Luokka.ltunnus, laatija, nimi 
 				FROM Luokka, Askareen_luokka 
 				WHERE Luokka.ltunnus NOT IN 
 					(SELECT ltunnus FROM Askareen_luokka WHERE atunnus = :atunnus)
@@ -63,7 +63,7 @@ class Askareen_luokka extends BaseModel{
 			$eiValitutLuokat[] = new Luokka(array(
 				'ltunnus' => $row['ltunnus'],
 				'laatija' => $row['laatija'],
-				'kuvaus' => $row['kuvaus']
+				'nimi' => $row['nimi']
 			));
 		}
 		return $eiValitutLuokat;

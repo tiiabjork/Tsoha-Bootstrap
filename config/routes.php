@@ -36,6 +36,14 @@
     AskareController::muutaTietoja($atunnus);
   });
 
+  $routes->post('/askareet/:atunnus', function($atunnus) {
+    AskareController::update($atunnus);
+  });
+
+  $routes->post('/askareet/:atunnus/poista', function($atunnus) {
+    AskareController::delete($atunnus);
+  });
+
   $routes->post('/luokat', function() {
     LuokkaController::store();
   });

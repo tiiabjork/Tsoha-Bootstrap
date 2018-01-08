@@ -17,16 +17,22 @@ class LuokkaController extends BaseController {
 	//TOIMII - Poimii lomakkeelle tallennetut tiedot tallennettavaksi tietokantaan.
 	public static function store(){
 		$params = $_POST;
-		$luokka = new Luokka(array(
-			'kuvaus' => $params['luokka']
-		));
+		$attribuutit = array(
+			'nimi' => $params['luokka']
+		);
 
-		$luokka->save();
+		$luokka = new Luokka($attribuutit);
+		$errors = $luokka->errors();
 
-		Redirect::to('/luokat');
+		if(count($errors) == 0){
+			//Ei tule erroreita
+			$luokka->save();
+			Redirect::to('/luokat');
+		}else{
+			//Askareen tiedoissa on jotain häikkää
+			$luokat = Luokka::all();
+			View::make('luokat/muokkaa_luokkia.html', array('errors' => $errors, 'luokat' => $luokat));
+		}
 	}
-	
 
 }
-
-

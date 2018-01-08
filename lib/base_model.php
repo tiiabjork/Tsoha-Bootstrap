@@ -26,7 +26,7 @@
     public function validoi_pituus(){
       $errors = array();
       if(strlen($this->nimi) < 3){
-        $errors[] = 'Syötteen tulee olla vähintään kolme merkkiä!';
+        $errors[] = 'Nimen tulee olla vähintään kolme merkkiä!';
       }
       return $errors;
     }
@@ -36,6 +36,24 @@
       if($this->kiireellisyys == '' || $this->kiireellisyys == null){
         $errors[] = 'Kiireellisyydelle on valittava jokin määre!';
       }
+      return $errors;
+    }
+
+    public function validoi_tupla_luokka(){
+      $errors = array();
+
+      //Haetaan kannasta samannimistä luokkaa
+      $query = DB::connection()->prepare('
+              SELECT * 
+              FROM Luokka 
+              WHERE nimi = :nimi
+              LIMIT 1');
+      $query->execute(array('nimi' => $this->nimi));
+      $row = $query->fetch();
+
+      if($row){
+        $errors[] = 'Luokka on jo olemassa!';
+      } 
       return $errors;
     }
 

@@ -10,6 +10,16 @@
       <input name="nimi" class="form-control" value="{{askare.nimi}}" type="text">
     </div>
 
+    <div class="checkbox">
+      <label>
+        {% if status == 1 %}
+            <input name="status" type="checkbox" checked>Tehty
+        {% else %}
+            <input name="status" type="checkbox">Tehty
+        {% endif %} 
+      </label>
+    </div>
+
 
     <div class="form-group">
       <label>Kiireellisyys</label>
@@ -21,38 +31,38 @@
             {% endif %}       
         </label>
         <label class="radio-inline">
-            {% if kiireellisyys == 1 %}
+            {% if kiireellisyys == 2 %}
               <input type="radio" name="kiireellisyys" value="2" checked>2
               {% else %}
               <input type="radio" name="kiireellisyys" value="2">2
             {% endif %}       
         </label>
         <label class="radio-inline">
-            {% if kiireellisyys == 1 %}
+            {% if kiireellisyys == 3 %}
               <input type="radio" name="kiireellisyys" value="3" checked>3
               {% else %}
               <input type="radio" name="kiireellisyys" value="3">3
             {% endif %}       
         </label>
         <label class="radio-inline">
-            {% if kiireellisyys == 1 %}
+            {% if kiireellisyys == 4 %}
               <input type="radio" name="kiireellisyys" value="4" checked>4
               {% else %}
               <input type="radio" name="kiireellisyys" value="4">4
             {% endif %}       
         </label>
         <label class="radio-inline">
-            {% if kiireellisyys == 1 %}
+            {% if kiireellisyys == 5 %}
               <input type="radio" name="kiireellisyys" value="5" checked>5
               {% else %}
               <input type="radio" name="kiireellisyys" value="5">5
             {% endif %}       
         </label>
         <label class="radio-inline">
-            {% if kiireellisyys == 1 %}
-              <input type="radio" name="kiireellisyys" value="0" checked>Ei määritelty.
+            {% if kiireellisyys == 0 %}
+              <input type="radio" name="kiireellisyys" value="0" checked>0
               {% else %}
-              <input type="radio" name="kiireellisyys" value="0">Ei määritelty.
+              <input type="radio" name="kiireellisyys" value="0">0
             {% endif %}       
         </label>
     </div>
@@ -63,7 +73,7 @@
       <label>Askareen luokat</label>
       {% for valittuLuokka in valitutLuokat %}
           <span class="tag label label-info green">
-            <span>{{valittuLuokka.kuvaus}}</span>
+            <span>{{valittuLuokka.nimi}}</span>
             <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a> 
           </span>
        {% endfor %} 
@@ -74,7 +84,7 @@
       <label>Valitse lisää luokkia</label>
       <select class="selectpicker" data-style="btn-primary" name="luokkaValinta">
         {%for luokka in kaikkiLuokat%}
-          <option>{{luokka.kuvaus}}</option>
+          <option>{{luokka.nimi}}</option>
         {%endfor%}
         <option>Testi</option>
         <option>Toinen testi</option>
@@ -83,12 +93,12 @@
     </div>
     <div class="form-group">
       <label>Lisätiedot</label>
-      <input class="form-control" value="{{askare.lisatiedot}}" type="text">
+      <input name="lisatiedot" class="form-control" value="{{askare.lisatiedot}}" type="text">
     </div>
-    
+
     
     <div class="form-group">
-      <button class="btn btn-primary">Tallenna muutokset</button>
+      <button type="submit" class="btn btn-primary">Tallenna muutokset</button>
     </div>
   </form>
 {% endblock %}

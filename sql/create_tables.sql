@@ -16,7 +16,7 @@ CREATE TABLE Askare(
 CREATE TABLE Luokka(
   ltunnus SERIAL PRIMARY KEY,
   laatija INTEGER REFERENCES Kayttaja(kayttaja_id), 
-  kuvaus varchar(20) NOT NULL
+  nimi varchar(20) NOT NULL
 );
 
 CREATE TABLE Askareen_luokka(

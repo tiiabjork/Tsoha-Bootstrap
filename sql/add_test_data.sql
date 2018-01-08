@@ -2,10 +2,10 @@
 INSERT INTO Kayttaja (kayttajatunnus, salasana)
 VALUES ('Ville', 'omena123');
 
-INSERT INTO Luokka (laatija, kuvaus)
+INSERT INTO Luokka (laatija, nimi)
 VALUES (1, 'Kotihommat');
 
-INSERT INTO Luokka (laatija, kuvaus)
+INSERT INTO Luokka (laatija, nimi)
 VALUES (1, 'Kouluhommat');
 
 INSERT INTO Askare (laatija, nimi, kiireellisyys, lisatiedot, status)

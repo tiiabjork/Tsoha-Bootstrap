@@ -19,18 +19,18 @@ class AskareController extends BaseController {
     }
 
     //TOIMII - Listaa kaikki askareet.
-	public static function listaaKaikkiAskareet(){
-		$askareet = Askare::all();
-		View::make('askareet/askarelistaus.html', 
-					array('askareet' => $askareet));
-	}
+	//public static function listaaKaikkiAskareet(){
+	//	$askareet = Askare::all();
+	//	View::make('askareet/askarelistaus.html', 
+	//				array('askareet' => $askareet));
+	//}
 
 	//TOIMII - Avaa lomakkeen, jolla voi tallentaa uuden askareen.
 	public static function create(){
 		View::make('askareet/lisaa_askare.html');
 	}
 
-	//TOIMII - Poimii lomakkeelle tallennetut tiedot tallennettavaksi tietokantaan.
+	//Poimii lomakkeelle tallennetut tiedot tallennettavaksi tietokantaan.
 	public static function store(){
 		$params = $_POST;
 		$attribuutit = array(
@@ -43,7 +43,7 @@ class AskareController extends BaseController {
 		$errors = $askare->errors();
 
 		if(count($errors) == 0){
-			//Ei tule erroreita
+			//Syöte ok -> tallentaa tietokantaan
 			$askare->save();
 			Redirect::to('/askareet/' . $askare->atunnus, 
 					array('message' => 'Askare on lisätty muistilistaasi!'));
@@ -53,6 +53,7 @@ class AskareController extends BaseController {
 		}		
 	}
 
+
 	//TOIMII - Etsii tietyn askareen.
 	public static function find($atunnus) {
 		$askare = Askare::find($atunnus);
@@ -61,22 +62,56 @@ class AskareController extends BaseController {
 					array('askare' => $askare,
 						  'askareenLuokat' => $askareenLuokat));
 	}
+
 	
-	//Ei vielä toiminnasssa.
 	public static function muutaTietoja($atunnus) {
 		$askare = Askare::find($atunnus);
 		$kiireellisyys = $askare->kiireellisyys();
+		$status = $askare->status();
 		$valitutLuokat = Askareen_luokka::findValitutLuokat($atunnus);
 		$kaikkiLuokat = Luokka::all();
 		View::make('askareet/muokkaa_askaretta.html', 
 					array('askare' => $askare, 
 						  'kiireellisyys' => $kiireellisyys,
+						  'status' => $status,
 						  'valitutLuokat' => $valitutLuokat,
 						  'kaikkiLuokat' => $kaikkiLuokat));
-
 	}
 
-	// Ei vielä varmaa tuleeko toiminnallisuudeksi lopulta.
+	public static function update($atunnus) {
+		$params = $_POST;
+		$status = 1;
+		//Jos checkbox on rastimatta, on arvo tyhjä.
+		if(empty($params['status'])){
+			$status = 0;
+		}
+
+		$attribuutit = array(
+			'atunnus' => $atunnus,
+			'nimi' => $params['nimi'],
+			'kiireellisyys' => $params['kiireellisyys'],
+			'lisatiedot' => $params['lisatiedot'],
+			'status' => $status
+		);
+
+		$askare = new Askare($attribuutit);
+		$errors = $askare->errors();
+
+		if(count($errors) > 0){
+			View::make('askareet/muokkaa_askaretta.html', array('errors' => $errors, 'attribuutit' => $attribuutit));
+		}else{
+			$askare->update();
+			Redirect::to('/askareet/' . $atunnus, 
+					array('message' => 'Askare on päivitetty onnistuneesti!'));
+		}		
+	}
+
+	public static function delete($atunnus) {
+    	$askare = new Askare(array('atunnus' => $atunnus));
+    	$askare->destroy();
+    	Redirect::to('/askareet', array('message' => 'Askare on poistettu onnistuneesti!'));
+	}
+
 	public static function listaaKaikkiAskareetMuokkaus(){
 		$askareet = Askare::all();
 		View::make('askareet/muokkaa_askareita.html', 
