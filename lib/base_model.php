@@ -15,12 +15,38 @@
       }
     }
 
+    public function validoi_tyhjyys(){
+      $errors = array();
+      if($this->nimi == '' || $this->nimi == null){
+        $errors[] = 'Nimi ei saa olla tyhjä!';
+      }
+      return $errors;
+    }
+
+    public function validoi_pituus(){
+      $errors = array();
+      if(strlen($this->nimi) < 3){
+        $errors[] = 'Syötteen tulee olla vähintään kolme merkkiä!';
+      }
+      return $errors;
+    }
+
+    public function validoi_kiireellisyys(){
+      $errors = array();
+      if($this->kiireellisyys == '' || $this->kiireellisyys == null){
+        $errors[] = 'Kiireellisyydelle on valittava jokin määre!';
+      }
+      return $errors;
+    }
+
     public function errors(){
       // Lisätään $errors muuttujaan kaikki virheilmoitukset taulukkona
       $errors = array();
 
       foreach($this->validators as $validator){
         // Kutsu validointimetodia tässä ja lisää sen palauttamat virheet errors-taulukkoon
+        $validointiMetodinErrori = $this->{$validator}();
+        $errors = array_merge($errors, $validointiMetodinErrori);
       }
 
       return $errors;

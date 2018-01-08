@@ -49,7 +49,7 @@ public function save(){
     	VALUES (:kuvaus) RETURNING ltunnus');
     $query->execute(array('kuvaus' => $this->kuvaus));
     $row = $query->fetch();
-    $this->atunnus = $row['atunnus'];
+    //$this->ltunnus = $row['ltunnus'];
 	}
 
 

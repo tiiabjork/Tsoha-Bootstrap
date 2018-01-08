@@ -24,7 +24,6 @@ class Askareen_luokka extends BaseModel{
 		return $askareiden_luokat;
 	}
 
-
 	//Etsii yhden askareen kaikki luokat, findLuokat(atunnus). Palauttaa listan luokista.
 	public static function findValitutLuokat($atunnus){
 		$query = DB::connection()->prepare('

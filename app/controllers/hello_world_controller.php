@@ -6,8 +6,15 @@
     // Täältä löytyy kaikki suunnitelmat.
 
     public static function sandbox(){
-      // Testaa koodiasi täällä
-      View::make('helloworld.html');
+      $askare = new Askare(array(
+        'nimi' => 'd',
+        'kiireellisyys' => ''
+         ));
+
+        $errors = $askare->errors();
+
+        Kint::dump($errors);
+  }
     }
 
     public static function muokkaa_askareita(){

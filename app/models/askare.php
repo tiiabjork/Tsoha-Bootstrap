@@ -6,7 +6,26 @@ class Askare extends BaseModel{
 
 	public function __construct($attributes){
 		parent::__construct($attributes);
+		$this->validators = array('validoi_tyhjyys', 'validoi_pituus', 'validoi_kiireellisyys');
 	}
+
+	//public function validoi_nimi(){
+	//	$errors = array();
+	//	$errors[] = parent::validoi_tyhjyys($this->nimi);
+	//	$errors[] = parent::validoi_pituus($this->nimi);
+	//	return $errors;
+	//}
+
+	//public function validoi_kiireellisyy(){
+	//	$errors = array();
+	//	$errors[] = parent::validoi_kiireellisyys($this->kiireellisyys);
+	//	return $errors;
+	//}
+
+	public function kiireellisyys(){
+		return $this->kiireellisyys;
+	}
+
 
 	//Palauttaa KAIKKI askareet.
 	public static function all(){

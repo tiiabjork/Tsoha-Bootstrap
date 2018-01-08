@@ -17,15 +17,13 @@ class LuokkaController extends BaseController {
 	//TOIMII - Poimii lomakkeelle tallennetut tiedot tallennettavaksi tietokantaan.
 	public static function store(){
 		$params = $_POST;
-		$askare = new Askare(array(
-			'nimi' => $params['nimi'],
-			'kiireellisyys' => $params['kiireellisyys'],
-			'lisatiedot' => $params['lisatiedot']
+		$luokka = new Luokka(array(
+			'kuvaus' => $params['luokka']
 		));
 
-		$askare->save();
+		$luokka->save();
 
-		Redirect::to('/askareet/' . $askare->atunnus, array('message' => 'Askare on lisätty muistilistaasi!'));
+		Redirect::to('/luokat');
 	}
 	
 
