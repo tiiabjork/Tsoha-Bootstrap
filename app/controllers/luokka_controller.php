@@ -18,7 +18,7 @@ class LuokkaController extends BaseController {
 	public static function store(){
 		$params = $_POST;
 		$attribuutit = array(
-			'nimi' => $params['luokka']
+			'nimi' => $params['nimi']
 		);
 
 		$luokka = new Luokka($attribuutit);
@@ -33,6 +33,12 @@ class LuokkaController extends BaseController {
 			$luokat = Luokka::all();
 			View::make('luokat/muokkaa_luokkia.html', array('errors' => $errors, 'luokat' => $luokat));
 		}
+	}
+
+	public static function delete($ltunnus) {
+    	$luokka = new Luokka(array('ltunnus' => $ltunnus));
+    	$luokka->delete();
+    	Redirect::to('/luokat', array('message' => 'Luokka on poistettu onnistuneesti!'));
 	}
 
 }

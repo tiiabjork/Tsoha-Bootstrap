@@ -93,8 +93,18 @@ class Askare extends BaseModel{
     	$row = $query->fetch();
 	}
 
-	public function delete($atunnus){
+	public function delete(){
+		$query = DB::connection()->prepare('
+    			DELETE FROM Askareen_luokka 
+    			WHERE atunnus = :atunnus');
+    	$query->execute(array('atunnus' => $this->atunnus));
+    	$row = $query->fetch();
 
+		$query = DB::connection()->prepare('
+    			DELETE FROM Askare 
+    			WHERE atunnus = :atunnus');
+    	$query->execute(array('atunnus' => $this->atunnus));
+    	$row = $query->fetch();
 	}
 
 }

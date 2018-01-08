@@ -48,12 +48,25 @@ class Luokka extends BaseModel{
 		return null;
 	}
 
-public function save(){
-    $query = DB::connection()->prepare('INSERT INTO Luokka (nimi) 
-    	VALUES (:nimi) RETURNING ltunnus');
-    $query->execute(array('nimi' => $this->nimi));
-    $row = $query->fetch();
+	public function save(){
+    	$query = DB::connection()->prepare('INSERT INTO Luokka (nimi) 
+    		VALUES (:nimi) RETURNING ltunnus');
+    	$query->execute(array('nimi' => $this->nimi));
+    	$row = $query->fetch();
 	}
 
+	public function delete(){
+		$query = DB::connection()->prepare('
+    			DELETE FROM Askareen_luokka
+    			WHERE ltunnus = :ltunnus');
+    	$query->execute(array('ltunnus' => $this->ltunnus));
+    	$row = $query->fetch();
+
+		$query = DB::connection()->prepare('
+    			DELETE FROM Luokka 
+    			WHERE ltunnus = :ltunnus');
+    	$query->execute(array('ltunnus' => $this->ltunnus));
+    	$row = $query->fetch();
+	}
 
 }

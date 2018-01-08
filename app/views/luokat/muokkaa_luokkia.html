@@ -1,10 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms %}
   <h1>Muokkaa luokkia</h1>
 
-  
+  {% if message %}
+    <div class="alert alert-success">
+      <ul>
+          <li>{{message}}</li>
+        </ul>
+    </div>
+  {% endif %}
     
-<table class="table table-bordered table-striped">
+  <table class="table table-bordered table-striped">
   	<col width="300">
     <col width="80">
     <thead>
@@ -18,7 +25,8 @@
       {% for luokka in luokat %}
       <tr>
         <td>{{luokka.nimi}}</td>
-        <th><a class="btn btn-danger btn-sm" href="#">Poista</a></th></tr>
+        <td><{{forms.delete_button("#{base_path}/luokat/#{luokka.ltunnus}")}} </td>
+      </tr>
       {% endfor %}
     </tbody>
   </table>
@@ -37,7 +45,7 @@
    <form method="post" action="{{base_path}}/luokat">
     <div class="form-group">
       <label>Lisää luokka</label>
-        <input name="luokka" class="form-control" placeholder="Kirjoita uuden luokan nimi tähän" type="text">
+        <input name="nimi" class="form-control" placeholder="Kirjoita uuden luokan nimi tähän" type="text">
     <div class="form-group">
       
     <div class="form-group">

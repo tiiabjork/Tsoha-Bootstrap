@@ -108,7 +108,7 @@ class AskareController extends BaseController {
 
 	public static function delete($atunnus) {
     	$askare = new Askare(array('atunnus' => $atunnus));
-    	$askare->destroy();
+    	$askare->delete();
     	Redirect::to('/askareet', array('message' => 'Askare on poistettu onnistuneesti!'));
 	}
 

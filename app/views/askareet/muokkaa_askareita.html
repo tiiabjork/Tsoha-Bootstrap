@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms %}
   <h1>Muistilista</h1>
 
   <p> Lisätietoja askareesta löydät klikkaamalla askareen nimeä.</p>
@@ -23,7 +24,7 @@
     <tbody>
       {% for askare in askareet %}
       <tr>
-        <td><a href="{{base_path}}/askareet/{{askare.atunnus}}">{{askare.nimi}}
+        <td><a href="{{base_path}}/askareet/{{askare.atunnus}}">{{askare.nimi}} </a>
         </td>
         <td>
           {% if askare.kiireellisyys != 0 %}
@@ -37,8 +38,8 @@
              <button class="btn btn-success btn-sm">Tehty</button>
         {% endif %}        
         </td>
-        <th><a href="{{base_path}}/askareet/{{askare.atunnus}}/muokkaa" class="btn btn-default btn-sm">Muokkaa</a></a></th>
-        <th><a class="btn btn-danger btn-sm" href="#">Poista</a></th>      
+        <th><a href="{{base_path}}/askareet/{{askare.atunnus}}/muokkaa" class="btn btn-default btn-sm">Muokkaa</a></th>
+        <th>{{forms.delete_button("#{base_path}/askareet/#{askare.atunnus}/poista")}}</th>      
       </tr>
       {% endfor %}
     </tbody>

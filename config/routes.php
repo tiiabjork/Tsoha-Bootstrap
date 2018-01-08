@@ -44,13 +44,19 @@
     AskareController::delete($atunnus);
   });
 
+  $routes->get('/luokat', function() {
+    LuokkaController::listaaKaikkiLuokatMuokkaus();
+  });
+
   $routes->post('/luokat', function() {
     LuokkaController::store();
   });
 
-  $routes->get('/luokat', function() {
-    LuokkaController::listaaKaikkiLuokatMuokkaus();
+  $routes->post('/luokat/:ltunnus', function($ltunnus) {
+    LuokkaController::delete($ltunnus);
   });
+
+
 
 
 

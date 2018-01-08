@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms %}
   <h1>{{askare.nimi}}</h1>
   
   {% if message %}
@@ -11,7 +12,7 @@
   {% endif %}
 
    <p>
-    <button class="btn btn-danger">Poista</button> 
+    {{forms.delete_button("#{base_path}/askareet/#{askare.atunnus}/poista")}}
     <a href="{{base_path}}/askareet/{{askare.atunnus}}/muokkaa" class="btn btn-default">Muokkaa</a>
   </p>
 
