@@ -3,7 +3,7 @@
 class KayttajaController extends BaseController {
 
 	public static function kirjaudu(){
-		View::make('etusivu/kirjautuminen.html');
+		View::make('yleiset/kirjautuminen.html');
 	}
 
 	public static function kasittele_kirjautuminen(){
@@ -11,12 +11,14 @@ class KayttajaController extends BaseController {
 
 		$kayttaja = Kayttaja::authenticate($params['kayttajatunnus'], $params['salasana']);
 
-		if(!$user){
-			View::make('etusivu/kirjautuminen.html', array('error' => 'Väärä käyttäjätunnus tai salasana!', 'kayttajatunnus' =>$params['kayttajatunnus']))
+		if(!$kayttaja){
+			View::make('yleiset/kirjautuminen.html', 
+				array('error' => 'Väärä käyttäjätunnus tai salasana!','kayttajatunnus' =>$params['kayttajatunnus']));
 		}else{
-			$_SESSION['kayttaja'] = $kayttaja->id;
+			$_SESSION['user'] = $kayttaja->id();
 
-			Redirect::to('/', array('message' => 'Tervetuloa takaisin ' . $user->name . '!'));
+			Redirect::to('/askareet', array(
+						'message' => 'Tervetuloa takaisin ' . $kayttaja->kayttajatunnus . '!'));
 		}
 	}
 
@@ -24,31 +26,5 @@ class KayttajaController extends BaseController {
     	View::make('yleiset/rekisteroityminen.html');
     }
 
-	public static function create(){
-		View::make('askareet/lisaa_askare.html');
-	}
-
-	public static function store(){
-		$params = $_POST;
-		$attribuutit = array(
-			'nimi' => $params['nimi']
-		);
-
-		$luokka = new Luokka($attribuutit);
-		$errors = $luokka->errors();
-
-		if(count($errors) == 0){
-			//Ei tule erroreita
-			$luokka->save();
-			Redirect::to('/luokat', array('message' => 'Luokka lisätty onnistuneesti!'));
-		}else{
-			//Askareen tiedoissa on jotain häikkää
-			$luokat = Luokka::all();
-			View::make('luokat/muokkaa_luokkia.html', array('errors' => $errors, 'luokat' => $luokat));
-		}
-	}
-
-	public static function delete() {
-	}
 
 }

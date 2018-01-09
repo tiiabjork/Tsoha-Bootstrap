@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
 {% import "macros/forms.html" as forms %}
-  <h1>Muistilista</h1>
+  
+  {% if message %}
+    <div class="alert alert-success">
+      <ul>
+          <li>{{message}}</li>
+        </ul>
+    </div>
+  {% endif %}
 
-  <p> Lisätietoja askareesta löydät klikkaamalla askareen nimeä.</p>
+  {% if kirjautunut_kayttaja %}
+    <h1>Käyttäjän {{kirjautunut_kayttaja.kayttajatunnus}} muistilista</h1>
+  {% endif %}
+  
+
+  <p> {{kirjautunut_kayttaja.kayttajatunnus}} Lisätietoja askareesta löydät klikkaamalla askareen nimeä.</p>
 
   <table class="table table-bordered table-striped">
   	<col width="300">

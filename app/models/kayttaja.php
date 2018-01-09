@@ -8,6 +8,14 @@ class Kayttaja extends BaseModel{
 		parent::__construct($attributes);
 	}
 
+	public static function kayttajatunnus(){
+		return $this->kayttajatunnus;
+	}
+
+	public static function id(){
+		return $this->id;
+	}
+
 	public static function authenticate($kayttajatunnus, $salasana){
 		$query = DB::connection()->prepare('
 				SELECT * 
@@ -49,8 +57,12 @@ class Kayttaja extends BaseModel{
 
 	//Palauttaa yhden käyttäjän id:n perusteella.
 	public static function find($id){
-		$query = DB::connection()->prepare('SELECT * FROM Kayttaja WHERE id = :id LIMIT 1');
-		$query->execute(array('id' => $id);
+		$query = DB::connection()->prepare('
+				SELECT * 
+				FROM Kayttaja 
+				WHERE id = :id 
+				LIMIT 1');
+		$query->execute(array('id' => $id));
 		$row = $query->fetch();
 
 		if($row){	
@@ -58,8 +70,8 @@ class Kayttaja extends BaseModel{
 			'id' => $row['id'],
 			'kayttajatunnus' => $row['kayttajatunnus'],
 			'salasana' => $row['salasana']
-		));
-		return $kayttaja;
+			));
+			return $kayttaja;
 		}
 		return null;
 	}

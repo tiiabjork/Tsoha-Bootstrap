@@ -85,8 +85,10 @@ class AskareController extends BaseController {
 
 	public static function listaaKaikkiAskareetMuokkaus(){
 		$askareet = Askare::all();
+		$kirjautunut_kayttaja = self::get_user_logged_in();
 		View::make('askareet/muokkaa_askareita.html', 
-					array('askareet' => $askareet));
+					array('askareet' => $askareet,
+						  'kirjautunut_kayttaja' => $kirjautunut_kayttaja));
 	}
 
 
