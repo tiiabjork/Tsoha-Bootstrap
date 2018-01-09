@@ -1,19 +1,23 @@
 <?php
 
   $routes->get('/', function() {
-    AskareController::index();
+    YleisController::index();
   });
 
   $routes->get('/etusivu', function(){
-    AskareController::index();
+    YleisController::index();
   });
 
-  $routes->get('/etusivu/kirjautuminen', function() {
-    AskareController::kirjaudu();
+  $routes->get('/etusivu/kirjaudu', function() {
+    KayttajaController::kirjaudu();
   });
 
-  $routes->get('/etusivu/rekisteroityminen', function() {
-    AskareController::rekisteroidy();
+  $routes->post('/etusivu/kirjaudu', function() {
+    KayttajaController::kasittele_kirjautuminen();
+  });
+
+  $routes->get('/etusivu/rekisteroidy', function() {
+    KayttajaController::rekisteroidy();
   });
 
   $routes->get('/askareet', function() {

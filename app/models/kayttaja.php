@@ -8,6 +8,28 @@ class Kayttaja extends BaseModel{
 		parent::__construct($attributes);
 	}
 
+	public static function authenticate($kayttajatunnus, $salasana){
+		$query = DB::connection()->prepare('
+				SELECT * 
+				FROM Kayttaja 
+				WHERE kayttajatunnus = :kayttajatunnus 
+				AND salasana = :salasana
+				LIMIT 1');
+		$query->execute(array(
+				'kayttajatunnus' => $kayttajatunnus, 
+				'salasana' => $salasana));
+		$row = $query->fetch();
+		if($row){
+			$kayttaja = new Kayttaja(array(
+				'kayttajatunnus' => $kayttajatunnus,
+				'salasana' => $salasana
+			));
+			return $kayttaja;
+		}else{
+			return null;
+		}
+	}
+
 	//Palauttaa KAIKKI käyttäjät.
 	public static function all(){
 		$query = DB::connection()->prepare('SELECT * FROM Kayttaja');
