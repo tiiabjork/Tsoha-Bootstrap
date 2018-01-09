@@ -48,7 +48,7 @@
     LuokkaController::listaaKaikkiLuokatMuokkaus();
   });
 
-  $routes->post('/luokat', function() {
+  $routes->post('/luokat/', function() {
     LuokkaController::store();
   });
 

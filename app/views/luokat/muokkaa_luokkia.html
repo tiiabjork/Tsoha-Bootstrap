@@ -25,7 +25,7 @@
       {% for luokka in luokat %}
       <tr>
         <td>{{luokka.nimi}}</td>
-        <td><{{forms.delete_button("#{base_path}/luokat/#{luokka.ltunnus}")}} </td>
+        <td>{{forms.delete_button("#{base_path}/luokat/#{luokka.ltunnus}")}}</td>
       </tr>
       {% endfor %}
     </tbody>

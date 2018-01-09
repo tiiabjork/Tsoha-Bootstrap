@@ -2,7 +2,7 @@
 
 class Luokka extends BaseModel{
 	
-	public $atunnus, $laatija, $nimi;
+	public $ltunnus, $laatija, $nimi;
 
 	public function __construct($attributes){
 		parent::__construct($attributes);

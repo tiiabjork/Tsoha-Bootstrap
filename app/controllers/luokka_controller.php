@@ -27,7 +27,7 @@ class LuokkaController extends BaseController {
 		if(count($errors) == 0){
 			//Ei tule erroreita
 			$luokka->save();
-			Redirect::to('/luokat');
+			Redirect::to('/luokat', array('message' => 'Luokka lisätty onnistuneesti!'));
 		}else{
 			//Askareen tiedoissa on jotain häikkää
 			$luokat = Luokka::all();
