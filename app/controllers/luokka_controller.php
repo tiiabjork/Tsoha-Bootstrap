@@ -5,7 +5,10 @@ class LuokkaController extends BaseController {
 	
 	public static function listaaKaikkiLuokatMuokkaus(){
 		$luokat = Luokka::all();
-		View::make('luokat/muokkaa_luokkia.html', array('luokat' => $luokat));
+		View::make('luokat/muokkaa_luokkia.html', 
+			 array('luokat' => $luokat,
+				   'kirjautunut_kayttaja' => self::get_user_logged_in()
+				));
 	}
 
 	public static function create(){
@@ -26,7 +29,9 @@ class LuokkaController extends BaseController {
 			Redirect::to('/luokat', array('message' => 'Luokka lisätty onnistuneesti!'));
 		}else{
 			$luokat = Luokka::all();
-			View::make('luokat/muokkaa_luokkia.html', array('errors' => $errors, 'luokat' => $luokat));
+			View::make('luokat/muokkaa_luokkia.html', 
+				 array('errors' => $errors, 
+				 	   'luokat' => $luokat));
 		}
 	}
 

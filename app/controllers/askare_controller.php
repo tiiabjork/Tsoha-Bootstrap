@@ -2,6 +2,7 @@
 
 class AskareController extends BaseController {
 
+
 	public static function create(){
 		View::make('askareet/lisaa_askare.html');
 	}
@@ -67,8 +68,7 @@ class AskareController extends BaseController {
 
 		$askare = new Askare($attribuutit);
 		$errors = $askare->errors();
-$valitutLuokat = Askareen_luokka::findValitutLuokat($atunnus);
-		$kaikkiLuokat = Luokka::all();
+
 		if(count($errors) > 0){
 			View::make('askareet/muokkaa_askaretta.html', 
 					    array('errors' => $errors, 

@@ -2,11 +2,26 @@
 {% block content %}
   <h1>Muistilista</h1>
 
-  <p>Voit rekisteröityä käyttäjäksi muistilistaan ja pitää kirjaa muistettavista asioista. Jos olet jo käyttäjä, kirjaudu sisään klikkaamalla yläoikealta "Kirjaudu sisään".</p>
+  {% if message %}
+    <div class="alert alert-success">
+      <ul>
+          <li>{{message}}</li>
+        </ul>
+    </div>
+  {% endif %}
+
+  <p>Tervetuloa Muistilista-applikaatioon!</p>
+
+  <p>Voit rekisteröityä käyttäjäksi muistilistaan ja pitää kirjaa muistettavista asioista. Kirjautuminen on täysin ilmaista, ja muut eivät pääse katselemaan tekeleitäsi. Jos olet jo käyttäjä, kirjaudu sisään klikkaamalla yläoikealta "Kirjaudu sisään".</p>
 
 
-  <p>
+  {% if user_logged_in %}
+    
+  {% else %}
     <a href="{{base_path}}/etusivu/rekisteroidy" class="btn btn-primary">Rekisteröidy käyttäjäksi</a>
+  {% endif %}
+  <p>
+    
   </p>
 
 

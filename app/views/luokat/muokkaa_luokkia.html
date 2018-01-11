@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 {% import "macros/forms.html" as forms %}
-  <h1>Muokkaa luokkia</h1>
+  
+  {% if kirjautunut_kayttaja %}
+    <h1>Käyttäjän {{kirjautunut_kayttaja.kayttajatunnus}} luokat</h1>
+  {% endif %}
 
   {% if message %}
     <div class="alert alert-success">

@@ -17,9 +17,14 @@ class KayttajaController extends BaseController {
 		}else{
 			$_SESSION['user'] = $kayttaja->id();
 
-			Redirect::to('/askareet', array(
+			Redirect::to('/etusivu', array(
 						'message' => 'Tervetuloa takaisin ' . $kayttaja->kayttajatunnus . '!'));
 		}
+	}
+
+	public static function kirjaudu_ulos(){
+		$_SESSION['user'] = null;
+		Redirect::to('/etusivu', array('message' => 'Olet nyt kirjautunut ulos. Kiitos käynnistä ja nähdään taas!'));
 	}
 
 	public static function rekisteroidy(){
