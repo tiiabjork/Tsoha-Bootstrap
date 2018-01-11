@@ -82,7 +82,10 @@ class Askare extends BaseModel{
 	public function update(){
 		$query = DB::connection()->prepare('
     			UPDATE Askare 
-    			SET nimi = :nimi, kiireellisyys = :kiireellisyys, lisatiedot = :lisatiedot, status = :status 
+    			SET nimi = :nimi, 
+    				kiireellisyys = :kiireellisyys, 
+    				lisatiedot = :lisatiedot, 
+    				status = :status
     			WHERE atunnus = :atunnus
     			RETURNING atunnus');
     	$query->execute(array('atunnus' => $this->atunnus,
@@ -90,7 +93,7 @@ class Askare extends BaseModel{
     					'kiireellisyys' => $this->kiireellisyys,
     					'lisatiedot' => $this->lisatiedot,
     					'status' => $this->status));
-    	$row = $query->fetch();
+//    	$row = $query->fetch();
 	}
 
 	public function delete(){

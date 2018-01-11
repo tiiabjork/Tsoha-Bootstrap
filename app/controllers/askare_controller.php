@@ -41,13 +41,13 @@ class AskareController extends BaseController {
 		$kiireellisyys = $askare->kiireellisyys();
 		$status = $askare->status();
 		$valitutLuokat = Askareen_luokka::findValitutLuokat($atunnus);
-		$kaikkiLuokat = Luokka::all();
+		$eiValitutLuokat = Askareen_luokka::findEiValitutLuokat($atunnus);
 		View::make('askareet/muokkaa_askaretta.html', 
 					array('askare' => $askare, 
 						  'kiireellisyys' => $kiireellisyys,
 						  'status' => $status,
 						  'valitutLuokat' => $valitutLuokat,
-						  'kaikkiLuokat' => $kaikkiLuokat));
+						  'eiValitutLuokat' => $eiValitutLuokat));
 	}
 
 	public static function update($atunnus) {
@@ -63,8 +63,19 @@ class AskareController extends BaseController {
 			'nimi' => $params['nimi'],
 			'kiireellisyys' => $params['kiireellisyys'],
 			'lisatiedot' => $params['lisatiedot'],
-			'status' => $status
+			'status' => $status,
+			'uudetLuokat' => array()
 		);
+
+		if(empty($params['uudetLuokat'])){
+			$uudetLuokat = null;
+		}else{
+			$uudetLuokat = $params['uudetLuokat'];
+			
+			foreach($uudetLuokat as $luokka){
+			$attribuutit['uudetLuokat'][] = $luokka;
+		    }
+		}
 
 		$askare = new Askare($attribuutit);
 		$errors = $askare->errors();
@@ -79,6 +90,7 @@ class AskareController extends BaseController {
 						      'kaikkiLuokat' => Luokka::all()));
 		}else{
 			$askare->update();
+			Askareen_luokka::save($atunnus, $attribuutit['uudetLuokat']);
 			Redirect::to('/askareet/' . $atunnus, 
 					array('message' => 'Askare on päivitetty onnistuneesti!'));
 		}		

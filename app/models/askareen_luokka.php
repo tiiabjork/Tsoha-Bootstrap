@@ -51,9 +51,12 @@ class Askareen_luokka extends BaseModel{
 		$query = DB::connection()->prepare('
 				SELECT Luokka.ltunnus, laatija, nimi 
 				FROM Luokka, Askareen_luokka 
-				WHERE Luokka.ltunnus NOT IN 
-					(SELECT ltunnus FROM Askareen_luokka WHERE atunnus = :atunnus)
-					AND Luokka.ltunnus = Askareen_luokka.ltunnus
+				WHERE atunnus = :atunnus
+				AND Luokka.ltunnus = Askareen_luokka.ltunnus
+				AND Luokka.ltunnus NOT IN (SELECT ltunnus 
+										   FROM Askareen_luokka 
+										   WHERE atunnus = :atunnus)
+				 
 				');
 		$query->execute(array('atunnus' => $atunnus));
 		$rows = $query->fetchAll();
@@ -88,9 +91,25 @@ class Askareen_luokka extends BaseModel{
 		return $luokan_askareet;
 	}
 
-	//Tallentaa käyttäjän lisäämän tietokohteen
-	public static function save(){
+	public static function save($atunnus, $uudetLuokat){
+		foreach($uudetLuokat as $ltunnus){
+			//Tarkastetaan ensin, löytyykö yhdistelmä jo taulusta
+			$query = DB::connection()->prepare('
+				SELECT *
+				FROM Askareen_luokka
+				WHERE atunnus = :atunnus AND ltunnus = :ltunnus
+				LIMIT 1');
+			$query->execute(array('atunnus' => $atunnus, 'ltunnus' => $ltunnus));
+			$row = $query->fetch();
 
+			if(!$row) {
+    			$query = DB::connection()->prepare('
+    					INSERT INTO Askareen_luokka (atunnus, ltunnus) 
+    					VALUES (:atunnus, :ltunnus)');
+    			$query->execute(array('atunnus' => $atunnus, 'ltunnus' => $ltunnus));
+    		}
+		}
 	}
+
 
 }
