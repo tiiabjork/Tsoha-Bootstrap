@@ -1,12 +1,12 @@
 CREATE TABLE Kayttaja(
-  kayttaja_id SERIAL PRIMARY KEY, 
+  id SERIAL PRIMARY KEY, 
   kayttajatunnus varchar(50) NOT NULL, 
   salasana varchar(50) NOT NULL
 );
 
 CREATE TABLE Askare(
   atunnus SERIAL PRIMARY KEY,
-  laatija INTEGER REFERENCES Kayttaja(kayttaja_id),
+  laatija INTEGER REFERENCES Kayttaja(id),
   nimi varchar(120) NOT NULL,
   kiireellisyys INTEGER NOT NULL,
   lisatiedot varchar(300),
@@ -15,7 +15,7 @@ CREATE TABLE Askare(
 
 CREATE TABLE Luokka(
   ltunnus SERIAL PRIMARY KEY,
-  laatija INTEGER REFERENCES Kayttaja(kayttaja_id), 
+  laatija INTEGER REFERENCES Kayttaja(id),
   nimi varchar(20) NOT NULL
 );
 

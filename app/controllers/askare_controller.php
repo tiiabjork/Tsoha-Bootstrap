@@ -67,9 +67,16 @@ class AskareController extends BaseController {
 
 		$askare = new Askare($attribuutit);
 		$errors = $askare->errors();
-
+$valitutLuokat = Askareen_luokka::findValitutLuokat($atunnus);
+		$kaikkiLuokat = Luokka::all();
 		if(count($errors) > 0){
-			View::make('askareet/muokkaa_askaretta.html', array('errors' => $errors, 'attribuutit' => $attribuutit));
+			View::make('askareet/muokkaa_askaretta.html', 
+					    array('errors' => $errors, 
+					    	  'askare' => $askare, 
+						      'kiireellisyys' => $attribuutit['kiireellisyys'],
+						      'status' => $attribuutit['status'],
+						      'valitutLuokat' => Askareen_luokka::findValitutLuokat($atunnus),
+						      'kaikkiLuokat' => Luokka::all()));
 		}else{
 			$askare->update();
 			Redirect::to('/askareet/' . $atunnus, 

@@ -8,11 +8,11 @@ class Kayttaja extends BaseModel{
 		parent::__construct($attributes);
 	}
 
-	public static function kayttajatunnus(){
+	public function kayttajatunnus(){
 		return $this->kayttajatunnus;
 	}
 
-	public static function id(){
+	public function id(){
 		return $this->id;
 	}
 
@@ -27,10 +27,12 @@ class Kayttaja extends BaseModel{
 				'kayttajatunnus' => $kayttajatunnus, 
 				'salasana' => $salasana));
 		$row = $query->fetch();
+
 		if($row){
 			$kayttaja = new Kayttaja(array(
-				'kayttajatunnus' => $kayttajatunnus,
-				'salasana' => $salasana
+			'id' => $row['id'],
+			'kayttajatunnus' => $kayttajatunnus,
+			'salasana' => $salasana
 			));
 			return $kayttaja;
 		}else{
@@ -47,9 +49,9 @@ class Kayttaja extends BaseModel{
 
 		foreach($rows as $row){
 			$kayttajat[] = new Kayttaja(array(
-				'id' => $row['id'],
-				'kayttajatunnus' => $row['kayttajatunnus'],
-				'salasana' => $row['salasana']
+			'id' => $row['id'],
+			'kayttajatunnus' => $row['kayttajatunnus'],
+			'salasana' => $row['salasana']
 			));
 		}
 		return $kayttajat;
