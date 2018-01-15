@@ -20,6 +20,11 @@
       if($this->nimi == '' || $this->nimi == null){
         $errors[] = 'Nimi ei saa olla tyhjä!';
       }
+      $trimmattu = trim($this->nimi);
+
+      if($this->nimi != $trimmattu){
+        $errors[] = 'Poista tyhjät merkit!';
+      }
       return $errors;
     }
 
@@ -27,6 +32,9 @@
       $errors = array();
       if(strlen($this->nimi) < 3){
         $errors[] = 'Nimen tulee olla vähintään kolme merkkiä!';
+      }
+      if(strlen($this->nimi) > 120){
+        $errors[] = 'Nimen tulee olla alle 120 merkkiä!';
       }
       return $errors;
     }

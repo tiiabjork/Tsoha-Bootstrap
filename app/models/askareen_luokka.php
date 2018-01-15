@@ -50,12 +50,15 @@ class Askareen_luokka extends BaseModel{
 	public static function findEiValitutLuokat($atunnus){
 		$query = DB::connection()->prepare('
 				SELECT Luokka.ltunnus, laatija, nimi
-				FROM Askareen_luokka
-				RIGHT JOIN Luokka
-				ON Luokka.ltunnus = Askareen_luokka.ltunnus
-				WHERE Askareen_luokka.ltunnus IS NULL
+				FROM Luokka
+				LEFT JOIN (
+					SELECT ltunnus
+					FROM Askareen_luokka
+					WHERE atunnus = :atunnus) AS a
+				ON Luokka.ltunnus = a.ltunnus
+				WHERE a.ltunnus IS NULL
 				');
-		$query->execute();
+		$query->execute(array('atunnus' => $atunnus));
 		$rows = $query->fetchAll();
 		$eiValitutLuokat = array();
 
@@ -117,7 +120,6 @@ class Askareen_luokka extends BaseModel{
     			AND ltunnus = :ltunnus');
     		$query->execute(array('atunnus' => $atunnus,
     							  'ltunnus' => $ltunnus));
-//    		$row = $query->fetch();
     	}
 		
 	}
