@@ -64,9 +64,22 @@ class AskareController extends BaseController {
 			'kiireellisyys' => $params['kiireellisyys'],
 			'lisatiedot' => $params['lisatiedot'],
 			'status' => $status,
-			'uudetLuokat' => array()
+			'uudetLuokat' => array(),
+			'poistetutLuokat' => array()
 		);
 
+		// Käydään läpi luokat, jotka poistettiin askareen listasta
+		if(empty($params['poistetutLuokat'])){
+			$poistetutLuokat = null;
+		}else{
+			$poistetutLuokat = $params['poistetutLuokat'];
+			
+			foreach($poistetutLuokat as $luokka){
+			$attribuutit['poistetutLuokat'][] = $luokka;
+		    }
+		}
+
+		// Käydään läpi luokat, jotka valittiin uutena askareelle
 		if(empty($params['uudetLuokat'])){
 			$uudetLuokat = null;
 		}else{
@@ -91,6 +104,7 @@ class AskareController extends BaseController {
 		}else{
 			$askare->update();
 			Askareen_luokka::save($atunnus, $attribuutit['uudetLuokat']);
+			Askareen_luokka::delete($atunnus, $attribuutit['poistetutLuokat']);
 			Redirect::to('/askareet/' . $atunnus, 
 					array('message' => 'Askare on päivitetty onnistuneesti!'));
 		}		

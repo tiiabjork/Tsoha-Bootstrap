@@ -16,11 +16,13 @@
   <form method="post" action="{{base_path}}/askareet/{{askare.atunnus}}">
 
   <form>
+    <!-- Askareen nimi -->
     <div class="form-group">
       <label>Askare</label>
       <input name="nimi" class="form-control" value="{{askare.nimi}}" type="text">
     </div>
 
+    <!-- "Tehty" nappula -->
     <div class="checkbox">
       <label>
         {% if status == 1 %}
@@ -31,7 +33,7 @@
       </label>
     </div>
 
-
+    <!-- Kiireellisyys -->
     <div class="form-group">
       <label>Kiireellisyys</label>
         <label class="radio-inline">
@@ -71,26 +73,25 @@
         </label>
         <label class="radio-inline">
             {% if kiireellisyys == 0 %}
-              <input type="radio" name="kiireellisyys" value="0" checked>0
+              <input type="radio" name="kiireellisyys" value="0" checked>Ei määritelty.
               {% else %}
-              <input type="radio" name="kiireellisyys" value="0">0
+              <input type="radio" name="kiireellisyys" value="0">Ei määritelty.
             {% endif %}       
         </label>
     </div>
 
 
-
-    <div class="form-group">
-      <label>Askareen luokat</label>
-      {% for valittuLuokka in valitutLuokat %}
-          <span class="tag label label-info green">
-            <span>{{valittuLuokka.nimi}}</span>
-            <a><i class="remove glyphicon glyphicon-remove-sign glyphicon-white"></i></a> 
-          </span>
-       {% endfor %} 
+    <!-- Luokat, jotka on valittu -->
+    <div>
+      <label>Valitut luokat</label>
+      <select class="form-control" name="poistetutLuokat[]" multiple="">
+        {%for luokka in valitutLuokat%}
+          <option value="{{luokka.ltunnus}}">{{luokka.nimi}}</option>
+        {%endfor%}
+      </select>
     </div>
 
-
+    <!-- Luokat, joita ei ole valittu -->
     <div>
       <label>Valitse lisää luokkia</label>
       <select class="form-control" name="uudetLuokat[]" multiple="">
@@ -99,6 +100,8 @@
         {%endfor%}
       </select>
     </div>
+
+    <!-- Lisätiedot-->
     <div class="form-group">
       <label>Lisätiedot</label>
       <input name="lisatiedot" class="form-control" value="{{askare.lisatiedot}}" type="text">

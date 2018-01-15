@@ -49,16 +49,13 @@ class Askareen_luokka extends BaseModel{
 
 	public static function findEiValitutLuokat($atunnus){
 		$query = DB::connection()->prepare('
-				SELECT Luokka.ltunnus, laatija, nimi 
-				FROM Luokka, Askareen_luokka 
-				WHERE atunnus = :atunnus
-				AND Luokka.ltunnus = Askareen_luokka.ltunnus
-				AND Luokka.ltunnus NOT IN (SELECT ltunnus 
-										   FROM Askareen_luokka 
-										   WHERE atunnus = :atunnus)
-				 
+				SELECT Luokka.ltunnus, laatija, nimi
+				FROM Askareen_luokka
+				RIGHT JOIN Luokka
+				ON Luokka.ltunnus = Askareen_luokka.ltunnus
+				WHERE Askareen_luokka.ltunnus IS NULL
 				');
-		$query->execute(array('atunnus' => $atunnus));
+		$query->execute();
 		$rows = $query->fetchAll();
 		$eiValitutLuokat = array();
 
@@ -106,9 +103,23 @@ class Askareen_luokka extends BaseModel{
     			$query = DB::connection()->prepare('
     					INSERT INTO Askareen_luokka (atunnus, ltunnus) 
     					VALUES (:atunnus, :ltunnus)');
-    			$query->execute(array('atunnus' => $atunnus, 'ltunnus' => $ltunnus));
+    			$query->execute(array('atunnus' => $atunnus, 
+    								  'ltunnus' => $ltunnus));
     		}
 		}
+	}
+
+	public static function delete($atunnus, $poistetutLuokat){
+		foreach($poistetutLuokat as $ltunnus){
+			$query = DB::connection()->prepare('
+    			DELETE FROM Askareen_luokka 
+    			WHERE atunnus = :atunnus
+    			AND ltunnus = :ltunnus');
+    		$query->execute(array('atunnus' => $atunnus,
+    							  'ltunnus' => $ltunnus));
+//    		$row = $query->fetch();
+    	}
+		
 	}
 
 
