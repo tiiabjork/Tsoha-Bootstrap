@@ -8,8 +8,10 @@ class AskareController extends BaseController {
 	}
 
 	public static function store(){
+		$kayttaja = self::get_user_logged_in();
 		$params = $_POST;
 		$attribuutit = array(
+			'laatija' => $kayttaja->id,
 			'nimi' => $params['nimi'],
 			'kiireellisyys' => $params['kiireellisyys'],
 			'lisatiedot' => $params['lisatiedot']
@@ -28,7 +30,8 @@ class AskareController extends BaseController {
 	}
 
 	public static function find($atunnus) {
-		$askare = Askare::find($atunnus);
+		$kayttaja = self::get_user_logged_in();
+		$askare = Askare::find($atunnus, $kayttaja->id);
 		$askareenLuokat = Askareen_luokka::findValitutLuokat($atunnus);
 		View::make('askareet/nayta_askare.html', 
 					array('askare' => $askare,
@@ -37,11 +40,13 @@ class AskareController extends BaseController {
 
 	
 	public static function muutaTietoja($atunnus) {
-		$askare = Askare::find($atunnus);
+		$kayttaja = self::get_user_logged_in();
+		$laatija = $kayttaja->id;
+		$askare = Askare::find($atunnus, $laatija);
 		$kiireellisyys = $askare->kiireellisyys();
 		$status = $askare->status();
 		$valitutLuokat = Askareen_luokka::findValitutLuokat($atunnus);
-		$eiValitutLuokat = Askareen_luokka::findEiValitutLuokat($atunnus);
+		$eiValitutLuokat = Askareen_luokka::findEiValitutLuokat($atunnus, $laatija);
 		View::make('askareet/muokkaa_askaretta.html', 
 					array('askare' => $askare, 
 						  'kiireellisyys' => $kiireellisyys,
@@ -51,6 +56,8 @@ class AskareController extends BaseController {
 	}
 
 	public static function update($atunnus) {
+		$kayttaja = self::get_user_logged_in();
+		$laatija = $kayttaja->id;
 		$params = $_POST;
 		$status = 1;
 		//Jos checkbox on rastimatta, on arvo tyhjä.
@@ -100,7 +107,8 @@ class AskareController extends BaseController {
 						      'kiireellisyys' => $attribuutit['kiireellisyys'],
 						      'status' => $attribuutit['status'],
 						      'valitutLuokat' => Askareen_luokka::findValitutLuokat($atunnus),
-						      'kaikkiLuokat' => Luokka::all()));
+						      'eiValitutLuokat' => Askareen_luokka::findEiValitutLuokat($atunnus, $laatija),
+						      'kaikkiLuokat' => Luokka::all($laatija)));
 		}else{
 			$askare->update();
 			Askareen_luokka::save($atunnus, $attribuutit['uudetLuokat']);
@@ -117,11 +125,12 @@ class AskareController extends BaseController {
 	}
 
 	public static function listaaKaikkiAskareetMuokkaus(){
-		$askareet = Askare::all();
-		$kirjautunut_kayttaja = self::get_user_logged_in();
+		$kayttaja = self::get_user_logged_in();
+		$laatija = $kayttaja->id;
+		$askareet = Askare::all($laatija);
 		View::make('askareet/muokkaa_askareita.html', 
 					array('askareet' => $askareet,
-						  'kirjautunut_kayttaja' => $kirjautunut_kayttaja));
+						  'kirjautunut_kayttaja' => $kayttaja));
 	}
 
 

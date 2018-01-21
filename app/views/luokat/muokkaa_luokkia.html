@@ -16,10 +16,12 @@
     
   <table class="table table-bordered table-striped">
   	<col width="300">
-    <col width="80">
+    <col width="40">
+    <col width="40">
     <thead>
       <tr>
         <th>Luokka</th>
+        <th></th>
         <th></th>
       </tr>
     </thead>
@@ -28,6 +30,7 @@
       {% for luokka in luokat %}
       <tr>
         <td>{{luokka.nimi}}</td>
+        <th><a href="{{base_path}}/luokat/{{luokka.ltunnus}}" class="btn btn-default btn-sm">Muokkaa</a></th>
         <td>{{forms.delete_button("#{base_path}/luokat/#{luokka.ltunnus}")}}</td>
       </tr>
       {% endfor %}

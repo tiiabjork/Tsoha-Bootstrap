@@ -6,14 +6,17 @@ class Luokka extends BaseModel{
 
 	public function __construct($attributes){
 		parent::__construct($attributes);
-		$this->validators = array('validoi_tyhjyys', 'validoi_pituus', 'validoi_tupla_luokka');
+		$this->validators = array('validoi_tyhjyys', 'validoi_nimen_pituus', 'validoi_tupla_luokka');
 	}
 
 
 	//Palauttaa KAIKKI luokat.
-	public static function all(){
-		$query = DB::connection()->prepare('SELECT * FROM Luokka');
-		$query->execute();
+	public static function all($laatija){
+		$query = DB::connection()->prepare('
+				SELECT * 
+				FROM Luokka
+				WHERE laatija = :laatija');
+		$query->execute(array('laatija' => $laatija));
 		$rows = $query->fetchAll();
 		$luokat = array();
 
@@ -49,10 +52,24 @@ class Luokka extends BaseModel{
 	}
 
 	public function save(){
-    	$query = DB::connection()->prepare('INSERT INTO Luokka (nimi) 
-    		VALUES (:nimi) RETURNING ltunnus');
-    	$query->execute(array('nimi' => $this->nimi));
+    	$query = DB::connection()->prepare('INSERT INTO Luokka (laatija, nimi) 
+    		VALUES (:laatija, :nimi) RETURNING ltunnus');
+    	$query->execute(array(
+    			'nimi' => $this->nimi,
+    			'laatija' => $this->laatija));
     	$row = $query->fetch();
+	}
+
+	public function update(){
+		$query = DB::connection()->prepare('
+    			UPDATE Luokka 
+    			SET nimi = :nimi
+    			WHERE ltunnus = :ltunnus
+    			AND laatija = :laatija');
+    	$query->execute(array(
+    			'ltunnus' => $this->ltunnus,
+    			'laatija' => $this->laatija,
+    			'nimi' => $this->nimi));
 	}
 
 	public function delete(){

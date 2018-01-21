@@ -2,14 +2,17 @@
 INSERT INTO Kayttaja (kayttajatunnus, salasana)
 VALUES ('Ville', 'omena123');
 
+INSERT INTO Kayttaja (kayttajatunnus, salasana)
+VALUES ('Kalle', 'banaani');
+
 INSERT INTO Luokka (laatija, nimi)
-VALUES (1, 'Kotihommat');
+VALUES (1, 'Kotityöt');
 
 INSERT INTO Luokka (laatija, nimi)
 VALUES (1, 'Kouluhommat');
 
 INSERT INTO Askare (laatija, nimi, kiireellisyys, lisatiedot, status)
-VALUES (1, 'Tiskivuoren tuhoaminen', 5, 'Jepjep', 1);
+VALUES (1, 'Tiskivuoren tuhoaminen', 5, 'Tää on ihan kamalaa mutta pakko tehdä. Muista vähän päivässä on paljon viikossa! :)', 1);
 
 INSERT INTO Askare (laatija, nimi, kiireellisyys, lisatiedot, status)
 VALUES (1, 'Kandin palautus', 4, 'Muista lisätä loppusanat ja oikea päivämäärä etulehtiöön. Lisäksi tarkista ohjaajan virallinen nimike netistä.', 1);

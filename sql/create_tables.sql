@@ -9,14 +9,14 @@ CREATE TABLE Askare(
   laatija INTEGER REFERENCES Kayttaja(id),
   nimi varchar(120) NOT NULL,
   kiireellisyys INTEGER NOT NULL,
-  lisatiedot varchar(300),
+  lisatiedot varchar(500),
   status INTEGER NOT NULL
 );
 
 CREATE TABLE Luokka(
   ltunnus SERIAL PRIMARY KEY,
   laatija INTEGER REFERENCES Kayttaja(id),
-  nimi varchar(20) NOT NULL
+  nimi varchar(120) NOT NULL
 );
 
 CREATE TABLE Askareen_luokka(

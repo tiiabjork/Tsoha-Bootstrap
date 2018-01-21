@@ -8,7 +8,6 @@ class Askareen_luokka extends BaseModel{
 		parent::__construct($attributes);
 	}
 
-	//hakee kaikkien askareiden kaikki luokat, all()
 	public static function all(){
 		$query = DB::connection()->prepare('SELECT * FROM Askareen_luokka');
 		$query->execute();
@@ -24,7 +23,6 @@ class Askareen_luokka extends BaseModel{
 		return $askareiden_luokat;
 	}
 
-	//Etsii yhden askareen kaikki luokat, findLuokat(atunnus). Palauttaa listan luokista.
 	public static function findValitutLuokat($atunnus){
 		$query = DB::connection()->prepare('
 				SELECT Luokka.ltunnus, laatija, nimi 
@@ -32,7 +30,6 @@ class Askareen_luokka extends BaseModel{
 				WHERE Luokka.ltunnus = Askareen_luokka.ltunnus
 					AND atunnus = :atunnus
 				');
-		//seuraavan rivin array antaa yläpuolella olevalle :atunnukselle jotain
 		$query->execute(array('atunnus' => $atunnus));
 		$rows = $query->fetchAll();
 		$valitutLuokat = array();
@@ -47,7 +44,7 @@ class Askareen_luokka extends BaseModel{
 		return $valitutLuokat;
 	}
 
-	public static function findEiValitutLuokat($atunnus){
+	public static function findEiValitutLuokat($atunnus, $laatija){
 		$query = DB::connection()->prepare('
 				SELECT Luokka.ltunnus, laatija, nimi
 				FROM Luokka
@@ -57,8 +54,11 @@ class Askareen_luokka extends BaseModel{
 					WHERE atunnus = :atunnus) AS a
 				ON Luokka.ltunnus = a.ltunnus
 				WHERE a.ltunnus IS NULL
+					AND laatija = :laatija
 				');
-		$query->execute(array('atunnus' => $atunnus));
+		$query->execute(array(
+				'atunnus' => $atunnus,
+				'laatija' => $laatija));
 		$rows = $query->fetchAll();
 		$eiValitutLuokat = array();
 
@@ -73,6 +73,7 @@ class Askareen_luokka extends BaseModel{
 	}
 
 	//Etsii yhden luokan kaikki askareet, findAskareet(ltunnus). Palauttaa listan askareista.
+	//TARVITSEEKO???
 	public static function findAskareet($ltunnus){
 		$query = DB::connection()->prepare('
 				SELECT atunnus 

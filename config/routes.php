@@ -28,7 +28,7 @@
     AskareController::listaaKaikkiAskareetMuokkaus();
   });
 
-  $routes->post('/askareet/', function() {
+  $routes->post('/askareet/', 'check_logged_in', function() {
     AskareController::store();
   });
 
@@ -44,7 +44,7 @@
     AskareController::muutaTietoja($atunnus);
   });
 
-  $routes->post('/askareet/:atunnus', function($atunnus) {
+  $routes->post('/askareet/:atunnus', 'check_logged_in', function($atunnus) {
     AskareController::update($atunnus);
   });
 
@@ -56,60 +56,23 @@
     LuokkaController::listaaKaikkiLuokatMuokkaus();
   });
 
-  $routes->post('/luokat/', function() {
+  $routes->post('/luokat/', 'check_logged_in', function() {
     LuokkaController::store();
   });
 
-  $routes->post('/luokat/:ltunnus', function($ltunnus) {
+  $routes->get('/luokat/:ltunnus', 'check_logged_in', function($ltunnus) {
+    LuokkaController::muutaTietoja($ltunnus);
+  });
+
+  $routes->post('/luokat/:ltunnus', 'check_logged_in', function($ltunnus) {
+    LuokkaController::update($ltunnus);
+  });
+
+  $routes->post('/luokat/:ltunnus', 'check_logged_in', function($ltunnus) {
     LuokkaController::delete($ltunnus);
   });
 
-  $routes->post('/kirjaudu_ulos', function(){
+  $routes->post('/kirjaudu_ulos', 'check_logged_in', function(){
     KayttajaController::kirjaudu_ulos();
   });
-
-
-
-
-
-
-
-
-
-
-
-
-  //suunnitelmat!
-
-  $routes->get('/hiekkalaatikko', function() {
-    HelloWorldController::sandbox();
-  });
-
-  $routes->get('/suunnitelma/etusivu', function() {
-    HelloWorldController::etusivu();
-  });
-  
-  $routes->get('/suunnitelma/muokkaa_askareita', function() {
-    HelloWorldController::muokkaa_askareita();
-  });
-  $routes->get('/suunnitelma/muokkaa_askareita/1', function() {
-    HelloWorldController::askareen_muokkaussivu();
-  });
-
-  $routes->get('/suunnitelma/kirjautuminen', function() {
-    HelloWorldController::kirjautuminen();
-  });
-
-  $routes->get('/suunnitelma/rekisteroityminen', function() {
-    HelloWorldController::rekisteroityminen();
-  });
-
-  $routes->get('/suunnitelma/luokat', function() {
-    HelloWorldController::luokat();
-  });
-
-  $routes->get('/suunnitelma/nayta_askareet', function() {
-    HelloWorldController::nayta_askareet();
-  });
-
 

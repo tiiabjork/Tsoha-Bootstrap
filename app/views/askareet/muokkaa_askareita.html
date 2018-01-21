@@ -15,10 +15,11 @@
   {% endif %}
   
 
-  <p>Lisätietoja askareesta löydät klikkaamalla askareen nimeä.</p>
+  <p>Lisätietoja askareesta löydät klikkaamalla askareen nimeä. Luokan nimeä pääsee muokkaamaan klikkaamalla luokan nimestä, tai luokan listausnäkymästä.</p>
 
   <table class="table table-bordered table-striped">
   	<col width="300">
+    <col width="300">
     <col width="50">
     <col width="50">
     <col width="80">
@@ -26,6 +27,7 @@
     <thead>
       <tr>
         <th>Askare</th>
+        <th>Luokittelu</th>
         <th>Kiireellisyys</th>
         <th>Status</th>
         <th></th>
@@ -37,6 +39,10 @@
       {% for askare in askareet %}
       <tr>
         <td><a href="{{base_path}}/askareet/{{askare.atunnus}}">{{askare.nimi}} </a>
+        </td>
+        <td> {% for luokka in askare.askareenLuokat %}
+          <a href="{{base_path}}/luokat/{{luokka.ltunnus}}" class="tag label label-info green">{{luokka.nimi}}</a>
+            {% endfor %} 
         </td>
         <td>
           {% if askare.kiireellisyys != 0 %}

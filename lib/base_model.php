@@ -28,10 +28,21 @@
       return $errors;
     }
 
-    public function validoi_pituus(){
+    public function validoi_nimen_pituus(){
       $errors = array();
       if(strlen($this->nimi) < 3){
         $errors[] = 'Nimen tulee olla vähintään kolme merkkiä!';
+      }
+      if(strlen($this->nimi) > 120){
+        $errors[] = 'Nimen tulee olla alle 120 merkkiä!';
+      }
+      return $errors;
+    }
+
+    public function validoi_lisatietojen_pituus(){
+      $errors = array();
+      if(strlen($this->lisatiedot) > 500){
+        $errors[] = 'Lisätietojen tulee mahtua 500:n merkin sisään.';
       }
       if(strlen($this->nimi) > 120){
         $errors[] = 'Nimen tulee olla alle 120 merkkiä!';
