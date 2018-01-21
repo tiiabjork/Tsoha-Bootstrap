@@ -17,7 +17,7 @@ class KayttajaController extends BaseController {
 		}else{
 			$_SESSION['user'] = $kayttaja->id();
 
-			Redirect::to('/etusivu', array(
+			Redirect::to('/askareet', array(
 						'message' => 'Tervetuloa takaisin ' . $kayttaja->kayttajatunnus . '!'));
 		}
 	}
